@@ -1,7 +1,7 @@
 class Customer:
 
     def __init__(self, last_name, first_name, address, drivers_license, kennitala,
-                current_rental_order_number):
+                current_rental_order_number=0):
         self.last_name = last_name
         self.first_name = first_name
         self.address = address
