@@ -3,10 +3,13 @@ class Vehicle(object):
         self.IDnumber = IDnumber
         self.body = body
         self.make = make
-        self. model = model
+        self.model = model
         self.year = year
-        self. color = color
+        self.color = color
         self.transmission = transmission
+    
+    def __str__(self):
+        return "{} {} {} {} {} {} {}".format(self.IDnumber,self.body,self.make,self.model,self.year,self.color,self.transmission)
     
     def get_IDnumber(self):
         return self.IDnumber
