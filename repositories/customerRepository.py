@@ -31,11 +31,11 @@ class CustomerRepository():
         kennitala = input("Remove customer: ")
         with open("Customer.csv", 'r') as customer_file:
             reader = csv.reader(customer_file)
-        with open("customerTmp.csv", 'w') as customer_file_tmp:
-            writer = csv.writer(customer_file_tmp)
-            for row in reader:
-                if row[0] != kennitala:
-                    writer.writerow(row)
+            with open("customerTmp.csv", 'w') as customer_file_tmp:
+                writer = csv.writer(customer_file_tmp)
+                for row in reader:
+                    if row[0] != kennitala:
+                        writer.writerow(row)
         os.rename('customerTmp.csv', 'Customer.csv')
                 
 
