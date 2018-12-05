@@ -1,4 +1,5 @@
 from Models.Employee import Employee
+import csv
 
 class EmployeeRepository(object):
     def __init__(self):
@@ -15,6 +16,14 @@ class EmployeeRepository(object):
     
     def remove_employee(self,manager,employee):
         if manager.is_manager():
+            pass
+    
+    def make_manager(self,manager,employee):
+        if manager.is_manager():
+            employee.manager = True
+    
+    def change_password(self,employee1,employee2):
+        if employee1.username == employee2.username:
             pass
 
     def get_employees(self):
