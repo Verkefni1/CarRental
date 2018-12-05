@@ -28,5 +28,5 @@ class Customer:
     def get_kennitala(self):
         return self.kennitala
     
-    def get_current_rental_order_number():
+    def get_current_rental_order_number(self):
         return self.current_rental_order_number
