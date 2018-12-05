@@ -27,7 +27,7 @@ class CustomerRepository():
                     self.customer.append(new_customer)    
         return self.customer 
     
-    def delete_customer(self, kennitala):
+    def remove_customer(self, kennitala):
         kennitala = input("Remove customer: ")
         with open("Customer.csv", 'r') as customer_file:
             reader = csv.reader(customer_file)
