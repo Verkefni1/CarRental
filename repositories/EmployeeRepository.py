@@ -51,12 +51,19 @@ and work with.
                             row[3] = True
             os.rename('EmployeesTmp.csv', 'Employees.csv')
     
+<<<<<<< HEAD
     def change_password(self,employee1,employee2):
         """ It checks that the current user and the passed employee have the same username.
         If true, it allows the user to rewrite the password value for that employee in the
         employee csv file
         """
         if employee1.username == employee2.username:
+=======
+    def change_password(self,current_employee,new_password_employee):
+        # current_employee will be passed automatically, new_password_employee
+        # is inputed by user
+        if current_employee.get_username() == new_password_employee.get_username():
+>>>>>>> 082e743976e2753720963aabd84610e9c372176f
             pass
 
     def get_employees(self):
