@@ -22,8 +22,10 @@ class EmployeeRepository(object):
         if manager.is_manager():
             employee.manager = True
     
-    def change_password(self,employee1,employee2):
-        if employee1.username == employee2.username:
+    def change_password(self,current_employee,new_password_employee):
+        # current_employee will be passed automatically, new_password_employee
+        # is inputed by user
+        if current_employee.get_username() == new_password_employee.get_username():
             pass
 
     def get_employees(self):
