@@ -16,14 +16,16 @@ class VehicleRepository():
             year = Vehicle.get_year()
             color = Vehicle.get_color()
             transmission = Vehicle.get_transmission()
+            Vehicles_file.write("{}, {}, {}, {}, {}, {}, {}\n".format(IDnumber, body, make,
+                                                        model, year, color, transmission))
 
     def get_vehicle(self, employee, vehicle):
-        if self.vehicle == []
-        with open("Vehicle.csv", "r") as Vehicle_file
-            for line in Vehicle_file.readlines():
-                IDnumber, body, make, model, year, color, transmission = line.split(",")
-                new_vehicle = Vehicle(IDnumber, body, make, model, year, color, transmission)
-                self.vehicle.append(new_vehicle)
+        if self.vehicle == []:
+            with open("Vehicle.csv", "r") as Vehicle_file:
+                for line in Vehicle_file.readlines():
+                    IDnumber, body, make, model, year, color, transmission = line.split(",")
+                    new_vehicle = Vehicle(IDnumber, body, make, model, year, color, transmission)
+                    self.vehicle.append(new_vehicle)
         return self.vehicle
 
     def remove_vehicle(self, vehicle, IDnumber):
