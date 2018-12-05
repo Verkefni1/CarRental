@@ -1,12 +1,12 @@
 from repositories.customerRepository import CustomerRepository
-from repositories.ReservarionRepository import ReservarionRepository
+from repositories.ReservationRepository import ReservationRepository
 from repositories.vehicleRepository import VehicleRepository
 
 
 class CarRentalServices():
      
     def __init__(self):
-        self.__car_rental_service = ReservarionRepository()
+        self.__car_rental_service = ReservationRepository()
         self.__customer_repository = CustomerRepository()
         self.__vehicle_repository = VehicleRepository()
 
