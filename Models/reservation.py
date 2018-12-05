@@ -2,19 +2,19 @@
 
 class Reservation:
 
-    def __init__(self, customer, reservation_number, payment_information, start_date, end_date, contract_length, further_insurance, vehicle_id, employee_id):
+    def __init__(self, customer, reservation_number, payment_information, start_date, end_date, contract_length, insurance, vehicle_id, employee):
         self.customer = customer
         self.reservation_number = reservation_number
         self.payment_information = payment_information
         self.start_date = start_date
         self.end_date = end_date
         self.contract_length = contract_length
-        self.further_insurance = further_insurance
+        self.insurance = insurance
         self.vehicle_id = vehicle_id
-        self.employee_id = employee_id
+        self.employee = employee
 
     def __str__(self):
-        return "{} {} {} {} {} {} {} {} {}".format(self.customer, self.reservation_number, self.payment_information, self.start_date, self.end_date, self.contract_length, self.further_insurance, self.vehicle_id, self.employee_id)
+        return "{} {} {} {} {} {} {} {} {}".format(self.customer, self.reservation_number, self.payment_information, self.start_date, self.end_date, self.contract_length, self.insurance, self.vehicle_id, self.employee)
 
     def get_customer(self):
         return self.customer
@@ -35,11 +35,11 @@ class Reservation:
         return self.contract_length
 
     def get_further_insurence(self):
-        return self.further_insurance
+        return self.insurance
 
     def get_vehicle_id(self):
         return self.vehicle_id
 
     def get_employee_id(self):
-        return self.employee_id
+        return self.employee
     
