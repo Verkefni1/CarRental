@@ -6,8 +6,8 @@ class CarRentalServices():
      
     def __init__(self):
         self.__car_rental_service = ReservarionRepository()
-        self.__customer_repository = customerRepository()
-        self.__vehicle_repository = vehicleRepository()
+        self.__customer_repository = CustomerRepository()
+        self.__vehicle_repository = VehicleRepository()
 
     def add_customer(self, employee, customer):
         return self.__customer_repository.add_customer(customer)
