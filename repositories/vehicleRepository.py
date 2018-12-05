@@ -9,13 +9,13 @@ class VehicleRepository():
 
     def add_vehicle(self, employee, manager, vehicle):
         with open("Vehicle.csv", "a+") as Vehicles_file:
-            IDnumber = Vehicle.get_IDnumber()
-            body = Vehicle.get_body()
-            make = Vehicle.get_make()
-            model = Vehicle.get_model()
-            year = Vehicle.get_year()
-            color = Vehicle.get_color()
-            transmission = Vehicle.get_transmission()
+            IDnumber = vehicle.get_IDnumber()
+            body = vehicle.get_body()
+            make = vehicle.get_make()
+            model = vehicle.get_model()
+            year = vehicle.get_year()
+            color = vehicle.get_color()
+            transmission = vehicle.get_transmission()
             Vehicles_file.write("{}, {}, {}, {}, {}, {}, {}\n".format(IDnumber, body, make,
                                                         model, year, color, transmission))
 
@@ -36,6 +36,6 @@ class VehicleRepository():
                 for row in reader:
                     if row[0] != IDnumber:
                         writer.writerow(row)
-            os.rename('VehicleTmp.csv', 'Vehicle.csv')
+        os.rename('VehicleTmp.csv', 'Vehicle.csv')
     
 
