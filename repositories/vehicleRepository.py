@@ -1,4 +1,7 @@
 
+from Models.Vehicle import Vehicle
+import csv
+import os
 
 class VehicleRepository():
 
@@ -25,6 +28,7 @@ class VehicleRepository():
         return self.vehicle
 
     def remove_vehicle(self, vehicle):
+        
         pass
     
 
