@@ -29,13 +29,13 @@ class VehicleRepository():
         return self.vehicle
 
     def remove_vehicle(self, vehicle, IDnumber):
-         with open("Vehicle.csv", 'r') as Vehicle_file:
+        with open("Vehicle.csv", 'r') as Vehicle_file:
             reader = csv.reader(Vehicle_file)
             with open("Vehicletmp.csv", 'w+') as Vehicle_file_tmp:
                 writer = csv.writer(Vehicle_file_tmp)
                 for row in reader:
                     if row[0] != IDnumber:
                         writer.writerow(row)
-        os.rename('VehicleTmp.csv', 'Vehicle.csv')
+            os.rename('VehicleTmp.csv', 'Vehicle.csv')
     
 
