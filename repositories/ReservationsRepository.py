@@ -1,4 +1,5 @@
 import csv
+import os
 from models.reservation import reservation
 
 class ReservationRepository:
