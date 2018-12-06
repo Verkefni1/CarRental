@@ -6,6 +6,9 @@ class Employee:
 
     def get_username(self):
         return self.username
+    
+    def get_password(self):
+        return self.__password
 
     def is_manager(self):
         return self.manager

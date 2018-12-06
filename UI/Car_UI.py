@@ -1,7 +1,6 @@
 from models.Employee import Employee
-from Services.CarRentalServices import CarRentalServices
-from Services.EmployeeServices import EmployeeServices
-
+from services.CarRentalServices import CarRentalServices
+from services.EmployeeServices import EmployeeServices
 
 class Car_UI:
     def __init__(self):
@@ -39,20 +38,35 @@ class Car_UI:
         while action not in options:
             
             print("Here are your options:\n1. Vehicle Menu\n2. Customer Records\n3. Reservations \n4. Employee Options \n5. Exit\n")
-            action = input("What would you like to do?: ")
+            action = input("Enter option number: ")
 
             if action == "1":
                 print("=== Accessing Vehicle Menu ===")
+                self.vehicle_menu(current_employee)
             elif action == "2":
                 print("=== Accessing Customer Records ===")
+                self.customer_menu(current_employee)
             elif action == "3":
                 print("=== Accessing Reservations ===")
+                self.reservations_menu(current_employee)
             elif action == "4":
                 print("=== Accessing Employee Options ===")
+                self.employee_menu(current_employee)
             elif action == "5":
                 print("=== Exiting Program ===")
                 quit()
             else:
                 print("Invalid input")
-
+    
+    def vehicle_menu(self,current_employee):
+        pass
+    
+    def customer_menu(self,current_employee):
+        pass
+    
+    def reservations_menu(self,current_employee):
+        pass
+    
+    def employee_menu(self,current_employee):
+        pass
 ### MUST RUN ON NEW_FILE.PY OR ELSE IT WONT RUN
