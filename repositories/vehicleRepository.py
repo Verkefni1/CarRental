@@ -24,7 +24,7 @@ class VehicleRepository():
                 for line in Vehicle_file.readlines():
                     IDnumber, body, make, model, year, color, transmission = line.split(",")
                     new_vehicle = Vehicle(IDnumber, body, make, model, year, color, transmission)
-                    self.vehicle.append(new_vehicle)
+                    self.__vehicle.append(new_vehicle)
         return self.__vehicle
 
     def remove_vehicle(self, vehicle, IDnumber):
