@@ -1,11 +1,11 @@
-from Models.Vehicle import Vehicle
+from models.Vehicle import Vehicle
 import csv
 import os
 
 class VehicleRepository():
 
     def __init__(self, vehicle):
-        self.vehicle = []
+        self.__vehicle = []
 
     def add_vehicle(self, employee, manager, vehicle):
         with open("Vehicle.csv", "a+") as Vehicles_file:
@@ -19,13 +19,13 @@ class VehicleRepository():
             Vehicles_file.write("{}, {}, {}, {}, {}, {}, {}\n".format(IDnumber, body, make, model, year, color, transmission))
 
     def get_vehicle(self, employee, vehicle):
-        if self.vehicle == []:
+        if self.__vehicle == []:
             with open("Vehicle.csv", "r") as Vehicle_file:
                 for line in Vehicle_file.readlines():
                     IDnumber, body, make, model, year, color, transmission = line.split(",")
                     new_vehicle = Vehicle(IDnumber, body, make, model, year, color, transmission)
                     self.vehicle.append(new_vehicle)
-        return self.vehicle
+        return self.__vehicle
 
     def remove_vehicle(self, vehicle, IDnumber):
         with open("Vehicle.csv", 'r') as Vehicle_file:
