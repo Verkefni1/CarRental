@@ -13,8 +13,10 @@ class CarRentalServices():
     def add_customer(self, employee, customer):
         return self.__customer_repo.add_customer(customer)
     
-    def add_vehicle(self, employee, manager, customer):
-        return self.__vehicle_repo.add_vehicle(customer)
+    def add_vehicle(self, employee, manager):
+        '''add vehicle to database?'''
+        if manager.is_manager():
+            return self.__vehicle_repo.add_vehicle()
     
     def get_vehicle(self, employee):
         return self.__vehicle_repo.get_vehicle()
