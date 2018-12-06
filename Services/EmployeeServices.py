@@ -1,5 +1,5 @@
 from repositories.EmployeeRepository import EmployeeRepository
-from Models.Employee import Employee
+from models.Employee import Employee
 
 class EmployeeServices(object):
 """ Services takes care of the logic between the Ui and the data held in the Repository. 
