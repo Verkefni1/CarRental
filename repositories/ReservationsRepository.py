@@ -30,10 +30,18 @@ class ReservationRepository:
                     customer, reservation_number, payment_information, start_date, end_date, contract_length, insurance, vehicle_id, employee = line.split(",")
                     new_reservation = reservation(customer, reservation_number, payment_information, start_date, end_date, contract_length, insurance, vehicle_id, employee)
                     self.__reservations.append(new_reservation)
-        return new_reservation 
+        return self.__reservations
 
 #Also confused with this part.
     def remove_reservation(self):
-        pass
+         with open("Reservations.csv", 'r') as reservation_file:
+            reader = csv.reader(reservation_file)
+            with open("ReservationsTmp.csv", 'w+') as reservation_file_tmp:
+                writer = csv.writer(reservation_file_tmp)
+                for row in reader:
+                    if row[0] != reservation_number:
+                        writer.writerow(row)
+        os.rename('ReservationsTmp.csv', 'Reservations.csv')
+
 
     
