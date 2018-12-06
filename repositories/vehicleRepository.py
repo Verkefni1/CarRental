@@ -16,7 +16,7 @@ class VehicleRepository():
             year = vehicle.get_year()
             color = vehicle.get_color()
             transmission = vehicle.get_transmission()
-            Vehicles_file.write("{}, {}, {}, {}, {}, {}, {}\n".format(IDnumber, body, make, model, year, color, transmission))
+            Vehicles_file.write("{}, {}, {}, {}, {}, {}, {}\n").format(IDnumber, body, make, model, year, color, transmission))
 
     def get_vehicle(self, employee, vehicle):
         if self.__vehicle == []:

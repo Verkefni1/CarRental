@@ -20,7 +20,7 @@ class ReservationRepository:
             insurance = reservation.get_insurance()
             vehicle_id = reservation.get_vehicle_id()
             employee = reservation.get_employee()
-            reservations_file.write("{}, {}, {}, {}, {}, {}, {}, {}, {}").format(customer, reservation_number, payment_information, start_date, end_date, contract_length, insurance, vehicle_id, employee))
+            reservations_file.write("{}, {}, {}, {}, {}, {}, {}, {}, {}\n".format(customer, reservation_number, payment_information, start_date, end_date, contract_length, insurance, vehicle_id, employee))
 
 #Don't know what comes here completely.
     def get_reservation(self):
