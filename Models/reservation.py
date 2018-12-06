@@ -14,7 +14,7 @@ class Reservation:
         self.employee = employee
 
     def __str__(self):
-        return "{} {} {} {} {} {} {} {} {}".format(self.customer, self.reservation_number, self.payment_information, self.start_date, self.end_date, self.contract_length, self.insurance, self.vehicle_id, self.employee)
+        return "Customer: {}\n Reservation number: {}\n Payment information: {}\n Start date: {}\n End date: {}\n Contract length: {}\n Insurance: {}\n Vehicle ID: {}\n Employee: {}\n".format(self.customer, self.reservation_number, self.payment_information, self.start_date, self.end_date, self.contract_length, self.insurance, self.vehicle_id, self.employee)
 
     def get_customer(self):
         return self.customer
