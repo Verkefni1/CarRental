@@ -5,7 +5,7 @@ from models.Customer import Customer
 class CustomerRepository():
 
     def __init__(self, customer):
-        self.customer = []
+        self.__customer = []
 
     def add_customer(self, customer):
         with open("Customer.csv", "a+") as customers_file:
@@ -19,13 +19,13 @@ class CustomerRepository():
                                                         drivers_license, kennitala, current_rental_number))
 
     def get_customer(self):
-        if self.customer == []:
+        if self.__customer == []:
             with open("Customer.csv", "r") as customer_file:
                 for line in customer_file.readlines():
                     first_name, last_name, address, drivers_license, kennitala = line.split(",")
                     new_customer = Customer(first_name, last_name, address, drivers_license, kennitala)
                     self.customer.append(new_customer)    
-        return self.customer 
+        return self.__customer 
     
     def remove_customer(self, kennitala):
         with open("Customer.csv", 'r') as customer_file:
