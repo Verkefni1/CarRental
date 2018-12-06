@@ -1,8 +1,8 @@
-from ui.CarRentalUi import CarRentalUi
+from UI.Car_UI import Car_UI
 
 def main():
-    ui = CarRentalUi()
-    ui.employee_login()
+    ui = Car_Ui()
+    ui.ui_login()
 
 main()
 

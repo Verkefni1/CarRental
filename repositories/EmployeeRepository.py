@@ -35,21 +35,19 @@ class EmployeeRepository(object):
                         writer.writerow(row)
         os.rename('EmployeesTmp.csv', 'Employees.csv')
     
-    def make_manager(self,manager,employee):
-        """ again, first checks if current user is a manager. If it returns True, 
-        it rewrites the employee file and changes the Manager value of the passed employee to be True.
+    def make_manager(self,employee):
+        """ Rewrites the employee file and changes the Manager value of the passed employee to be True.
         """
-        if manager.is_manager():
-            with open("Employees.csv", 'r') as employee_file:
-                reader = csv.reader(employee_file)
-                with open("EmployeesTmp.csv", 'w') as employee_file_tmp:
-                    writer = csv.writer(employee_file_tmp)
-                    for row in reader:
-                        if row[0] == employee.username:
-                            row[3] = True
-            os.rename('EmployeesTmp.csv', 'Employees.csv')
+        with open("Employees.csv", 'r') as employee_file:
+            reader = csv.reader(employee_file)
+            with open("EmployeesTmp.csv", 'w') as employee_file_tmp:
+                writer = csv.writer(employee_file_tmp)
+                for row in reader:
+                    if row[0] == employee.username:
+                        row[3] = True
+        os.rename('EmployeesTmp.csv', 'Employees.csv')
     
-    def change_password(self,employee):
+    def change_password(self,employee,new_password):
         """ Allows the user to rewrite the password value for that employee in the
         employee csv file. Ui prompts user for values, Services checks the user names
         match, Repository commits actual changes
