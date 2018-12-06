@@ -1,78 +1,114 @@
 from models.Employee import Employee
+from services.CarRentalServices import CarRentalServices
+from services.EmployeeServices import EmployeeServices
+from models.Vehicle import Vehicle
 
 class Car_UI:
     def __init__(self):
-        #self.__car_rental_service = CarRentalService()
-        #self.__employee_services = EmployeeServices()
-        self.name = "name" #Delete once we have the services
+        self.__car_rental_service = CarRentalServices()
+        self.__employee_services = EmployeeServices()
 
-    def login(self):
+    def ui_login(self):
         action = ""
         while action != "y":
-            print("Please Login\n")
+            print("====== Employee Login ======\n")
             username = input("Username: ").lower()
-            password = input("Password: ")
-            action = input("Submit?(Y/N): ").lower()
-            print("\n")
-
-            if action == "y":
-                Employee(username, password, True)#Might need to change this to false and make it so only the first person
-                                                  #that enters in a UN and PW becomes admin 
-                correct_inp = Employee().login(username, password)
-                if correct_inp:
-                    self.main_menu()
-                    #current_user = username
-                    #return correct_inp, current_user #Returns True if the input is correct
+            password = input("Password: ") #Will try to make the password only "*" for each letter
+            print("")
+            # creates current_employee class using username and password
+            # login() method checks if it's a valid employee and returns 
+            # true if employee found in data file and given password matches. 
+            # Next method checks for employee
+            # admin status and sets it according to data file.
+            current_employee = Employee(username, password)
+            
+            if self.__employee_services.login(current_employee,password):
+                current_employee.manager = current_employee.is_manager()
+                # Must pass current_employee class to main menu to 
+                # carry employee data to method and rest of program
+                self.main_menu(current_employee)
             elif action == "n":
-                print("Submit canceled\n")
+                print("Invalid username or password")
+                print("\n")
 
-    def main_menu(self):
+    def main_menu(self, current_employee):
         action = ""
-        options = ["1", "2", "3", "4"]
-        print("Welcome {}\n".format("Jon"))# Need to get the username here properly
+        options = ["1", "2", "3", "4", "5"]
+        print("Welcome {}\n".format(current_employee.get_username()))
         while action not in options:
-            #print("Welcome {}\n".format(Car_UI.login)) ## Print the name each time he has to input?
-            print("Here are your options:\n1. Car\n2. Customer\n3. Look up order \n4. Exit\n")
-            action = input("Enter: ")
-
+            print("Here are your options:\n1. Vehicle Menu\n2. Customer Records\n3. Reservations \n4. Employee Options \n5. Exit\n")
+            action = input("What would you like to do?: ")
+            print("\n")
             if action == "1":
-                print("Going to Car menu\n")
-                self.car_menu()
+                print("=== Accessing Vehicle Menu ===\n")
+                self.vehicle_menu(current_employee)
             elif action == "2":
-                print("Going to Customer menu")
-                self.customer_menu()
+                print("=== Accessing Customer Records ===\n")
+                self.customer_menu(current_employee)
             elif action == "3":
-                print("Going to Order menu")
-                self.order_menu()
+                print("=== Accessing Reservations ===\n")
+                self.reservations_menu(current_employee)
             elif action == "4":
-                print("\nExiting program")
-                exit
+                print("=== Accessing Employee Options ===\n")
+                self.employee_menu(current_employee)
+            elif action == "5":
+                print("=== Exiting Program ===\n")
+                quit()
             else:
-                print("Invalid input")
+                print("Invalid input\n")
 
-    def car_menu(self):# by using self.method() where method is the name of the method we want to go to, we can go from menu to menu
+    def vehicle_menu(self, current_employee):# by using self.method() where method is the name of the method we want to go to, we can go from menu to menu
         action = ""
         options = ["1", "2", "3", "4", "5"]
         while action not in options:
-            print("Here are your car options:") ## Print the name each time he has to input?
-            print("1. Display all available cars\n2. Display rented cars\n3. Reserve a car\n4. Calculate rental costs\n5. Go back\n")
+            print("Here are your vehicle options:") ## Print the name each time he has to input?
+            if current_employee == current_employee.is_manager():
+                print("1. Display all available cars\n2. Display all rented cars\n3. Reserve a car\n4. Calculate rental costs\n5. Go back\n")
+            else:
+                print("1. Display all available cars\n2. Display all rented cars\n3. Get vehicle\n4. Calculate rental costs\n5. Go back\n6. Add vehicle\n")
             action = input("Enter: ")
 
             if action == "1":
-                print("Display all available cars")
+                print("Add customer")
+
+                #print("Display all available cars")
+                #self.__car_rental_service.get_all_vehicles()
+            
             elif action == "2":
-                print("Display all rented cars")
+                print("\nAdd vehicle")
+                IDnumber = input("Car ID: ")
+                body = input("Body: ")
+                make = input("Make: ")
+                model = input("Model: ")
+                year = input("Year: ")
+                color = input("Color: ")
+                transmission = input("Transmission: ")
+                print("")
+                new_vehicle = Vehicle(IDnumber, body, make, model, year, color, transmission)
+                self.__car_rental_service.add_vehicle(new_vehicle)#writes the vehicle into the vehicle.csv file
+            
             elif action == "3":
-                print("Reserve a car")
+                print("Get Vehicle")
+                ID = input("Car ID: ")
+                print(self.__car_rental_service.get_vehicle(ID))#need help figuring this out
+
+
             elif action == "4":
-                print("Calculate rental costs")
+                print("Get all vehicles")
+
+                #print("Calculate rental costs")
+                
             elif action == "5":
-                print("Going back to main menu")
-                self.main_menu()
+                print("Get all reservations")
+
+            elif action == "6":
+                print("Go back")
+                self.main_menu(current_employee)
+
             else:
                 print("Invalid input")
 
-    def customer_menu(self):# Not sure how we are going to change from menu to menu.
+    def customer_menu(self, current_employee):# Not sure how we are going to change from menu to menu.
         action = ""
         options = ["1", "2", "3"]
         print("Here are your customer options:")
@@ -86,11 +122,11 @@ class Car_UI:
                 print("Looking up customer")
             elif action == "3":
                 print("Going back to main menu")
-                self.main_menu()
+                self.main_menu(current_employee)
             else:
                 print("Invalid input")
 
-    def order_menu(self):# Not sure how we are going to change from menu to menu.
+    def reservations_menu(self, current_employee):# Not sure how we are going to change from menu to menu.
         action = ""
         options = ["1", "2"]
         print("Look up order\n")
@@ -103,10 +139,31 @@ class Car_UI:
                 order_num = input("Please enter order number: ")
                 #if order_num in ## need to use the orders file here
             elif action == "2":
-                print("Going back to main menu")
-                self.main_menu()
+                print("Going back to main menu\n")
+                self.main_menu(current_employee)
             else:
                 print("Invalid input")
+                
+    def employee_menu(self, current_employee):
+        action = ""
+        options = []
+        print("Here are your options:")
+        print("1. Add employee\n2. Remove employee")
 
+        if action == "1":
+            print("Add employee")
+        elif action == "2":
+            print("Remove employee")
+        elif action == "3":
+            print("Make manager")
+        elif action == "4":
+            print("Get all employees")
+        elif action == "5":
+            print("Change password")
+        elif action == "6":
+            print("Go back")
+            self.main_menu(current_employee)
+        else:
+            print("Invalid input")
 
 ### MUST RUN ON NEW_FILE.PY OR ELSE IT WONT RUN
