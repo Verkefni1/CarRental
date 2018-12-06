@@ -34,7 +34,7 @@ class Car_UI:
 
     def main_menu(self,current_employee):
         action = ""
-        options = str([1, 2, 3, 4,])
+        options = str([1, 2, 3, 4, 5,])
         print("Welcome {}\n".format(current_employee.get_username()))
         while action not in options:
             
