@@ -20,11 +20,17 @@ class ReservationRepository:
             insurance = reservation.get_insurance()
             vehicle_id = reservation.get_vehicle_id()
             employee = reservation.get_employee()
+            reservations_file.write("{}, {}, {}, {}, {}, {}, {}, {}, {}").format(customer, reservation_number, payment_information, start_date, end_date, contract_length, insurance, vehicle_id, employee))
 
 #Don't know what comes here completely.
     def get_reservation(self):
         if self.__reservations == []:
-            with open("./data/reservations.csv", "r") as reservation_file:
+            with open("Reservations.csv", "r") as reservation_file:
+                for line in reservation_file.readlines():
+                    customer, reservation_number, payment_information, start_date, end_date, contract_length, insurance, vehicle_id, employee = line.split(",")
+                    new_reservation = reservation(customer, reservation_number, payment_information, start_date, end_date, contract_length, insurance, vehicle_id, employee)
+                    self.__reservations.append(new_reservation)
+        return new_reservation 
 
 #Also confused with this part.
     def remove_reservation(self):
