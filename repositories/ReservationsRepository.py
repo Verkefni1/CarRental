@@ -34,7 +34,7 @@ class ReservationRepository:
 
 #Also confused with this part.
     def remove_reservation(self):
-         with open("Reservations.csv", 'r') as reservation_file:
+        with open("Reservations.csv", 'r') as reservation_file:
             reader = csv.reader(reservation_file)
             with open("ReservationsTmp.csv", 'w+') as reservation_file_tmp:
                 writer = csv.writer(reservation_file_tmp)
