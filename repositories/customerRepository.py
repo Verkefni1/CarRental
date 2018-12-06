@@ -24,7 +24,7 @@ class CustomerRepository():
                 for line in customer_file.readlines():
                     first_name, last_name, address, drivers_license, kennitala = line.split(",")
                     new_customer = Customer(first_name, last_name, address, drivers_license, kennitala)
-                    self.customer.append(new_customer)    
+                    self.__customer.append(new_customer)    
         return self.__customer 
     
     def remove_customer(self, kennitala):
