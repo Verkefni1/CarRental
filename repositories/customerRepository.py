@@ -2,7 +2,7 @@ import csv
 import os
 from models.Customer import Customer
 
-class CustomerRepository():
+class CustomerRepository:
 
     def __init__(self, customer):
         self.__customer = []
