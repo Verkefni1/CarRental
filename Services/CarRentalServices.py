@@ -1,6 +1,6 @@
-from repositories.customerRepository import CustomerRepository
+from repositories.CustomerRepository import CustomerRepository
 from repositories.ReservationRepository import ReservationRepository
-from repositories.vehicleRepository import VehicleRepository
+from repositories.VehicleRepository import VehicleRepository
 
 
 class CarRentalServices():
