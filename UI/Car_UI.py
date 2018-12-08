@@ -2,6 +2,7 @@ from models.Employee import Employee
 from services.CarRentalServices import CarRentalServices
 from services.EmployeeServices import EmployeeServices
 from models.Vehicle import Vehicle
+import getpass
 
 class Car_UI:
     def __init__(self):
@@ -13,7 +14,8 @@ class Car_UI:
         while action != "y":
             print("====== Employee Login ======\n")
             username = input("Username: ").lower()
-            password = input("Password: ") #Will try to make the password only "*" for each letter
+            print("Password input is hidden")
+            password = getpass.getpass() # built-in Python module
             print("")
             # creates current_employee class using username and password
             # login() method checks if it's a valid employee and returns 
@@ -57,7 +59,8 @@ class Car_UI:
             else:
                 print("Invalid input\n")
 
-    def vehicle_menu(self, current_employee):# by using self.method() where method is the name of the method we want to go to, we can go from menu to menu
+    def vehicle_menu(self, current_employee):
+        # by using self.method() where method is the name of the method we want to go to, we can go from menu to menu
         action = ""
         options = ["1", "2", "3", "4", "5"]
         while action not in options:
@@ -128,21 +131,27 @@ class Car_UI:
 
     def reservations_menu(self, current_employee):# Not sure how we are going to change from menu to menu.
         action = ""
-        options = ["1", "2"]
-        print("Look up order\n")
+        options = ["1", "2", "3"] 
+        print("=== RESERVATIONS ===")
         while action not in options: # Need to use the orders file to check if the input matches an order number
-            print("Here are your order options:")
-            print("1. Look up order\n2. Go back")
-            action = input("Enter: ")
-
+            print("AVAILABLE OPTIONS:")
+            print("1. NEW RESERVATION\n2. SEARCH RESERVATIONS\n3. MAIN MENU")
+            action = input()
             if action == "1":
-                order_num = input("Please enter order number: ")
+                # New reservation
+                # input customer details, create class with them, pass class into reservation services
+
+            if action == "2":
+                #Search Reservations
+                order_num = input("ENTER RESERVATION NUMBER: ")
                 #if order_num in ## need to use the orders file here
-            elif action == "2":
-                print("Going back to main menu\n")
+            elif action == "3":
+                # Don't need to tell user where computer is taking them
+                # not like we have loading screens
+                #print("Going back to main menu\n")
                 self.main_menu(current_employee)
             else:
-                print("Invalid input")
+                print("INPUT INVALID")
                 
     def employee_menu(self, current_employee):
         action = ""

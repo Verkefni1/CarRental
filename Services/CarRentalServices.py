@@ -1,6 +1,7 @@
 from repositories.CustomerRepository import CustomerRepository
-from repositories.ReservationRepository import ReservationRepository
-from repositories.VehicleRepository import VehicleRepository
+from repositories.ReservationsRepository import ReservationRepository
+from repositories.vehicleRepository import VehicleRepository
+from models.Employee import Employee
 
 
 class CarRentalServices():
@@ -16,7 +17,7 @@ class CarRentalServices():
     def add_vehicle(self, employee, manager, vehicle):
         '''add vehicle to database?'''
         if manager.is_manager():
-            return self.__vehicle_repo.add_vehicle(vehicle)
+            self.__vehicle_repo.add_vehicle(vehicle)
     
     def get_vehicle(self, employee):
         return self.__vehicle_repo.get_vehicle()

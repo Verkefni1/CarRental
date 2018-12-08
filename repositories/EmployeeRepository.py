@@ -44,7 +44,7 @@ class EmployeeRepository(object):
                 writer = csv.writer(employee_file_tmp)
                 for row in reader:
                     if row[0] == employee.username:
-                        row[3] = True
+                        row[2] = True
         os.rename('EmployeesTmp.csv', 'Employees.csv')
     
     def change_password(self,employee,new_password):

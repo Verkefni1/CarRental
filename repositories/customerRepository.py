@@ -4,7 +4,7 @@ from models.Customer import Customer
 
 class CustomerRepository:
 
-    def __init__(self, customer):
+    def __init__(self):
         self.__customer = []
 
     def add_customer(self, customer):
