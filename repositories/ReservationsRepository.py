@@ -23,7 +23,7 @@ class ReservationRepository:
             reservations_file.write("{}, {}, {}, {}, {}, {}, {}, {}, {}\n".format(customer, reservation_number, payment_information, start_date, end_date, contract_length, insurance, vehicle_id, employee))
 
 #Don't know what comes here completely.
-    def get_reservation(self, customer, employee):
+    def get_all_reservations(self):
         if self.__reservations == []:
             with open("Reservations.csv", "r") as reservation_file:
                 for line in reservation_file.readlines():

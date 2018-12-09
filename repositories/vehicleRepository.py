@@ -18,7 +18,7 @@ class VehicleRepository():
             transmission = vehicle.get_transmission()
             Vehicles_file.write("{}, {}, {}, {}, {}, {}, {}\n").format(IDnumber, body, make, model, year, color, transmission))
 
-    def get_vehicle(self, employee, vehicle):
+    def get_all_vehicles(self):
         if self.__vehicle == []:
             with open("Vehicle.csv", "r") as Vehicle_file:
                 for line in Vehicle_file.readlines():
@@ -26,6 +26,9 @@ class VehicleRepository():
                     new_vehicle = Vehicle(IDnumber, body, make, model, year, color, transmission)
                     self.__vehicle.append(new_vehicle)
         return self.__vehicle
+    
+    def get_vehicle(self,vehicle_ID):
+        pass
 
     def remove_vehicle(self, vehicle, IDnumber):
         with open("Vehicle.csv", 'r') as Vehicle_file:

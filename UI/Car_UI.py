@@ -14,7 +14,7 @@ class Car_UI:
         while action != "y":
             print("====== Employee Login ======\n")
             username = input("Username: ").lower()
-            print("Password input is hidden")
+            print("User password input is hidden. Press Enter to proceed.")
             password = getpass.getpass() # built-in Python module
             print("")
             # creates current_employee class using username and password
@@ -36,13 +36,13 @@ class Car_UI:
     def main_menu(self, current_employee):
         action = ""
         options = ["1", "2", "3", "4", "5"]
+        print("=== 55 Car Rental ===")
         print("Welcome {}\n".format(current_employee.get_username()))
         while action not in options:
             print("Here are your options:\n1. Vehicle Menu\n2. Customer Records\n3. Reservations \n4. Employee Options \n5. Exit\n")
             action = input("What would you like to do?: ")
             print("\n")
             if action == "1":
-                print("=== Accessing Vehicle Menu ===\n")
                 self.vehicle_menu(current_employee)
             elif action == "2":
                 print("=== Accessing Customer Records ===\n")
@@ -63,48 +63,53 @@ class Car_UI:
         # by using self.method() where method is the name of the method we want to go to, we can go from menu to menu
         action = ""
         options = ["1", "2", "3", "4", "5"]
+        print("=== Vehicle Menu ===\n")
         while action not in options:
-            print("Here are your vehicle options:") ## Print the name each time he has to input?
-            if current_employee == current_employee.is_manager():
-                print("1. Display all available cars\n2. Display all rented cars\n3. Reserve a car\n4. Calculate rental costs\n5. Go back\n")
-            else:
-                print("1. Display all available cars\n2. Display all rented cars\n3. Get vehicle\n4. Calculate rental costs\n5. Go back\n6. Add vehicle\n")
-            action = input("Enter: ")
+            
+            print("1. Display vehicles by availability\n2. Display Vehicle History\n3. Change Vehicle Status")
+            if current_employee.is_manager():
+                print("=== Management Options ===")
+                print("4. Add Vehicle to Fleet\n5. Retire Vehicle")
+            print("Press B to return to Main Menu")
+            action = input("Enter: ").lower()
 
             if action == "1":
-                print("Add customer")
-
-                #print("Display all available cars")
-                #self.__car_rental_service.get_all_vehicles()
+                # Display Vehicles by Availability
+                print("=== Displaying Vehicles by Availability ===")
             
             elif action == "2":
-                print("\nAdd vehicle")
-                IDnumber = input("Car ID: ")
-                body = input("Body: ")
-                make = input("Make: ")
-                model = input("Model: ")
-                year = input("Year: ")
-                color = input("Color: ")
-                transmission = input("Transmission: ")
-                print("")
-                new_vehicle = Vehicle(IDnumber, body, make, model, year, color, transmission)
-                self.__car_rental_service.add_vehicle(new_vehicle)#writes the vehicle into the vehicle.csv file
+                # Display Vehicle History
+                
             
             elif action == "3":
+                # Change Vehicle Status (Clean, Dirty, Out Of Order)
                 print("Get Vehicle")
                 ID = input("Car ID: ")
                 print(self.__car_rental_service.get_vehicle(ID))#need help figuring this out
 
 
             elif action == "4":
-                print("Get all vehicles")
-
-                #print("Calculate rental costs")
+                # Add Vehicle to Fleet
+                if current_employee.is_manager():
+                    print("=== Add Vehicle To Fleet ===")
+                    IDnumber = input("Car ID: ")
+                    body = input("Body: ")
+                    make = input("Make: ")
+                    model = input("Model: ")
+                    year = input("Year: ")
+                    color = input("Color: ")
+                    transmission = input("Transmission: ")
+                    print("")
+                    new_vehicle = Vehicle(IDnumber, body, make, model, year, color, transmission)
+                    self.__car_rental_service.add_vehicle(new_vehicle)#writes the vehicle into the vehicle.csv file
+                else:
+                    pass
                 
             elif action == "5":
+                # Retire Vehicle
                 print("Get all reservations")
 
-            elif action == "6":
+            elif action == "B".lower():
                 print("Go back")
                 self.main_menu(current_employee)
 

@@ -1,7 +1,7 @@
-from ui.Car_UI import Car_UI
+from ui.main_menu import MainMenu
 
 def main():
-    ui = Car_UI()
+    ui = MainMenu()
     ui.ui_login()
 
 main()
