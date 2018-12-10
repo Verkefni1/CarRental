@@ -13,8 +13,6 @@ class Customer:
         return "Customer:\n Full name: {}\n Address: {}\n Drivers license: {}\n Kennitala: {}\n Current rental order number: {}".format(self.first_name + " " + self.last_name, self.address, 
                  self.drivers_license, self.kennitala, self.current_rental_order_number)
     
-    # Do we put the __repr__ here like in the video code?
-
     def get_last_name(self):
         return self.last_name
     
