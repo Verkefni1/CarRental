@@ -13,7 +13,7 @@ class CarRentalServices():
         self.__customer_repo = CustomerRepository()
         self.__vehicle_repo = VehicleRepository()
         self.__employee_repo = EmployeeRepository()
-    
+     
     def write_employee_history(self,employee):
         """ Can be called from methods within services
         to add to employee, car, or whatever we need history"""
@@ -70,28 +70,3 @@ class CarRentalServices():
         self.__employee_repo.employee_history(employee)
         return self.__reservations_repo.get_all_reservations()
 
-    """ EMPLOYEE MENU FUNCTIONS """
-    # OPTION 1
-    def employee_change_password(self,employee,new_password):
-        self.__employee_repo.change_password(employee,new_password)
-    
-    # OPTION 2
-    def get_all_employees(self):
-        pass
-    
-    # OPTION 3
-    def make_admin(self,manager,new_admin):
-        if manager.is_manager():
-            pass
-    
-    # OPTION 4
-    def get_employee_activity(self,employee):
-        pass
-    
-    # OPTION 5
-    def make_new_employee(self,manager):
-        pass
-    
-    # OPTION 6
-    def remove_employee(self,manager):
-        pass

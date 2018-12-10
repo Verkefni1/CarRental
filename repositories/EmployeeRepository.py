@@ -11,13 +11,14 @@ class EmployeeRepository(object):
     def __init__(self):
         self.__employees = []
     
-    def add_employee(self, employee):
+    def make_new_employee(self, employee):
         """Appends the passed employee class into the employee csv file
         """
         with open("./data/employees.csv", "a+") as employees_file:
             username = employee.get_username()
-            password = employee.get_password()
-            employees_file.write("{},{}\n".format(username, password))
+            password = "password"
+            admin = False
+            employees_file.write("{},{},{}\n".format(username,password,admin))
     
     def remove_employee(self,manager,employee):
         
@@ -35,7 +36,7 @@ class EmployeeRepository(object):
                         writer.writerow(row)
         os.rename('EmployeesTmp.csv', 'Employees.csv')
     
-    def make_manager(self,employee):
+    def make_admin(self,employee):
         """ Rewrites the employee file and changes the Manager value of the passed employee to be True.
         """
         with open("Employees.csv", 'r') as employee_file:
@@ -67,10 +68,15 @@ class EmployeeRepository(object):
         if self.__employees == []:
             with open("./data/employees.csv", "r") as employee_file:
                 for line in employee_file.readlines():
-                    username, password = line.split(",")
+                    username, password, manager = line.split(",")
                     #new_employee = Employee(username, password)
-                    self.__employees.append(username)    
+                    self.__employees.append(username)
+                    # self.__employees.append(manager)    
         
         return self.__employees
+    
+        
+
+
 
 

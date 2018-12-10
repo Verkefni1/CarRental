@@ -141,8 +141,8 @@ class MainMenu:
                 drivers_license = input("Driver's License Number: ")
                 kennitala = input("Kennitala: ")
                 address = input("Address: ")
-                customer = Customer(customer)
-                self.__car_rental_service.add_customer(customer)
+                customer = Customer(last_name,first_name,drivers_license,kennitala,address)
+                self.__car_rental_service.add_customer(self.__current_employee,customer)
 
             elif action == "2":
                 print("=== Customer Search ===")
@@ -154,7 +154,7 @@ class MainMenu:
                 print("Remove Customer")
 
             elif action == "4":
-                self.ui_menu(current_employee)
+                self.ui_menu()
             else:
                 print("Invalid input")
 
@@ -203,37 +203,74 @@ class MainMenu:
             if self.__employee_services.login(self.__current_employee.get_username,password):
                 print("Input Hidden - Enter New Password And Press Enter")
                 new_password = getpass.getpass()
-                self.__car_rental_service.employee_change_password(self.__current_employee,new_password)
+                self.__employee_services.employee_change_password(self.__current_employee,new_password)
         
         elif action == "7":
             self.ui_menu()
         
         elif self.__current_employee.is_manager():
             if action == "2":
-                print("Print Current Employees")
-                self.__car_rental_service.get_all_employees(self.__current_employee)
+                if self.verify_pass():
+                    print("Current Employees")
+                    for employee in self.__employee_services.get_all_employees():
+                        print(employee)
+                    
         
             elif action == "3":            
-                print("Grant Admin Rights")
-                # new_admin musbt be string pulled from repo
-                self.__car_rental_service.make_admin(self.__current_employee,new_admin)
+                if self.verify_pass():
+                    print("Grant Admin Rights")
+                    # new_admin musbt be string pulled from repo
+                    new_admin = input("Enter Username: ")
+                    confirm = input("Warning! You are about to give {} administration rights. Are you sure? (Y/N)").format(new_admin)
+                    if confirm == "Y".lower():
+                        if self.__employee_services.is_employee(new_admin):
+                            self.__employee_services.make_admin(self.__current_employee,new_admin)
+                        else:
+                            self.not_employee()
+                    elif confirm == "N".lower():
+                        print("Operation Cancelled")
+                    else:
+                        print("Invalid Input")
+
             elif action == "4":
-                print("View Employee History")
-                # must prompt for username and check for validity
-                self.__car_rental_service.get_employee_history(self.employee_username)
+                if self.verify_pass():
+                    print("View Employee History")
+                    employee_history = input("Enter Username: ")
+                    if self.__employee_services.is_employee(employee_history):
+                    # must prompt for username and check for validity
+                        self.__employee_services.get_employee_history(employee_history)
+                    else:
+                        self.not_employee()
             
             elif action == "5":
-                print("Add Employee")
-                # Collect new employee info, pass to Employee() class, feed into
-                # method in Services
-                self.__car_rental_service.make_new_employee()
+                if self.verify_pass():
+                    print("Add Employee")
+                    username = input("Username: ")
+                    if not self.__employee_services.is_employee(username):
+                        self.__employee_services.make_new_employee(self.__current_employee,username)
+                    else:
+                        print("Username Already Taken")
+
             elif action == "6":
-                print("Remove Employee")
-                # variable to_remove is username of employee we're removing.
-                # Collected by user input and checked for validity before
-                # being passed into remove_employee method.
-                self.__car_rental_service.remove_employee(self.__current_employee,to_remove)
+                if self.verify_pass():
+                    print("Remove Employee")
+                    # variable to_remove is username of employee we're removing.
+                    # Collected by user input and checked for validity before
+                    # being passed into remove_employee method.
+                    username = input("Username: ")
+                    if self.__employee_services.is_employee(username):
+                        self.__employee_services.remove_employee(self.__current_employee,username)
+                    else:
+                        self.not_employee()
         else:
             print("Invalid input")
+
+    def verify_pass(self):
+        print("Please Re-Enter Password")
+        password = getpass.getpass()
+        return self.__employee_services.login(self.__current_employee,password)
+
+    def not_employee(self):
+        print("Employee Not Found")
 
 ### MUST RUN ON NEW_FILE.PY OR ELSE IT WONT RUN
