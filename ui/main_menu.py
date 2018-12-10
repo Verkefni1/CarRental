@@ -138,7 +138,7 @@ class MainMenu:
                 print("Enter Customer Details: ")
                 last_name = input("Last Name: ")
                 first_name = input("First Name: ")
-                drivers_id = input("Driver's License Number: ")
+                drivers_license = input("Driver's License Number: ")
                 kennitala = input("Kennitala: ")
                 address = input("Address: ")
                 customer = Customer(customer)
