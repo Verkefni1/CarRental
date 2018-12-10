@@ -130,7 +130,7 @@ class MainMenu:
         action = ""
         options = ["1", "2", "3"]
         while action not in options:
-            print("1. Register a customer\n2. Look up customer\n3. Main Menu\n")
+            print("1. Register a customer\n2. Look Up Customer\n3. Remove Custmer\n4. Main Menu\n")
             action = input("Enter: ")
 
             if action == "1":
@@ -151,6 +151,9 @@ class MainMenu:
                 self.__car_rental_service.search_customer(last_name,first_name)
             
             elif action == "3":
+                print("Remove Customer")
+
+            elif action == "4":
                 self.ui_menu(current_employee)
             else:
                 print("Invalid input")
@@ -173,6 +176,7 @@ class MainMenu:
                 print("Search Reservations")
                 #order_num = input("Input Reservation Number: ")
                 #if order_num in ## need to use the orders file here
+                # ALLOW TO DELETE RES HERE
                 """ self.__car_rental_service.get_reservation() """
             elif action == "3":
                 ## Show all reservations
@@ -193,8 +197,13 @@ class MainMenu:
             print("2. Print Current Employees\n3. Grant Admin Rights\n4. View Employee Activity\n5. Add Employee\n6. Remove Employee")
         action = input()
         if action == "1":
-            print("Change Password")
-            self.__car_rental_service(self.__current_employee)
+            print("=== Change Password ===")
+            print("Please Re-Enter Your Password")
+            password = getpass.getpass()
+            if self.__employee_services.login(self.__current_employee.get_username,password):
+                print("Input Hidden - Enter New Password And Press Enter")
+                new_password = getpass.getpass()
+                self.__car_rental_service.employee_change_password(self.__current_employee,new_password)
         
         elif action == "7":
             self.ui_menu()
@@ -211,7 +220,7 @@ class MainMenu:
             elif action == "4":
                 print("View Employee History")
                 # must prompt for username and check for validity
-                self.__car_rental_service.get_employee_history(employee_username)
+                self.__car_rental_service.get_employee_history(self.employee_username)
             
             elif action == "5":
                 print("Add Employee")

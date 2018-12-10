@@ -1,6 +1,8 @@
 from repositories.CustomerRepository import CustomerRepository
 from repositories.ReservationsRepository import ReservationRepository
 from repositories.vehicleRepository import VehicleRepository
+from repositories.EmployeeRepository import EmployeeRepository
+
 from models.Employee import Employee
 
 
@@ -10,6 +12,7 @@ class CarRentalServices():
         self.__reservations_repo = ReservationRepository()
         self.__customer_repo = CustomerRepository()
         self.__vehicle_repo = VehicleRepository()
+        self.__employee_repo = EmployeeRepository()
     
     def write_employee_history(self,employee):
         """ Can be called from methods within services
@@ -64,13 +67,13 @@ class CarRentalServices():
     
     def get_all_reservations(self, employee):
         # OPTION 3
-        self.employee_history(employee)
+        self.__employee_repo.employee_history(employee)
         return self.__reservations_repo.get_all_reservations()
 
     """ EMPLOYEE MENU FUNCTIONS """
     # OPTION 1
-    def change_password(self,current_employee):
-        pass
+    def employee_change_password(self,employee,new_password):
+        self.__employee_repo.change_password(employee,new_password)
     
     # OPTION 2
     def get_all_employees(self):

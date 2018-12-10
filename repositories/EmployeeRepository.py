@@ -52,7 +52,14 @@ class EmployeeRepository(object):
         employee csv file. Ui prompts user for values, Services checks the user names
         match, Repository commits actual changes
         """
-        pass
+        with open("Employees.csv", 'r') as employee_file:
+            reader = csv.reader(employee_file)
+            with open("EmployeesTmp.csv", 'w') as employee_file_tmp:
+                writer = csv.writer(employee_file_tmp)
+                for row in reader:
+                    if row[0] == employee.username:
+                        row[1] = new_password
+        os.rename('EmployeesTmp.csv', 'Employees.csv')
 
     def get_employees(self):
         """ returns a list with all current employees, except for passwords
