@@ -113,7 +113,7 @@ class Car_UI:
 
     def customer_menu(self, current_employee):# Not sure how we are going to change from menu to menu.
         action = ""
-        options = ["1", "2", "3"]
+        options = ["1", "2", "3", "4"]
         print("Here are your customer options:")
         while action not in options:
             print("1. Register a customer\n2. Look up customer\n3. Go back\n")
@@ -123,7 +123,9 @@ class Car_UI:
                 print("Registering a customer")
             elif action == "2":
                 print("Looking up customer")
-            elif action == "3":
+			elif action == "3":
+				print("Remove Customer")
+            elif action == "4":
                 print("Going back to main menu")
                 self.main_menu(current_employee)
             else:
