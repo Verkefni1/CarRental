@@ -130,7 +130,7 @@ class MainMenu:
         action = ""
         options = ["1", "2", "3"]
         while action not in options:
-            print("1. Register a customer\n2. Look Up Customer\n3. Remove Custmer\n4. Main Menu\n")
+            print("1. Register a customer\n2. Look Up Customer by name\n3. Look Up Customer by Kennitala 4. Remove Custmer\n5. Main Menu\n")
             action = input("Enter: ")
 
             if action == "1":
@@ -145,18 +145,25 @@ class MainMenu:
                 self.__car_rental_service.add_customer(self.__current_employee, customer)
 
             elif action == "2":
-                print("=== Customer Search ===")
+                print("=== Customer Search by Name ===")
                 last_name = input("Last Name: ")
                 first_name = input("First Name: ")
-                self.__car_rental_service.search_customer_by_name(self.__current_employee, last_name, first_name)
+                self.__car_rental_service.search_customer_by_name(last_name, first_name)
             
             elif action == "3":
+                print("=== Customer Search by Kennitala ===")
+                kennitala = input("Kennitala: ")
+                self.__car_rental_service.search_customer_by_kennitala(kennitala)
+
+            elif action == "4":
                 if self.__current_employee.is_manager():
                     print("=== Remove Customer ===")
                     kennitala = input("Kennitala: ")
                     self.__car_rental_service.remove_customer(kennitala)
+                else:
+                    pass
 
-            elif action == "4":
+            elif action == "5":
                 self.ui_menu()
             else:
                 print("Invalid input")

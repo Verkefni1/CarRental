@@ -1,6 +1,6 @@
 from repositories.CustomerRepository import CustomerRepository
 from repositories.ReservationsRepository import ReservationRepository
-from repositories.vehicleRepository import VehicleRepository
+from repositories.VehicleRepository import VehicleRepository
 from repositories.EmployeeRepository import EmployeeRepository
 
 from models.Employee import Employee
@@ -53,9 +53,15 @@ class CarRentalServices():
     def add_customer(self, employee, customer):
         return self.__customer_repo.add_customer(customer)
 
-    def search_customer(self,last_name = "", first_name = ""):
-        pass    
+    def search_customer_by_name(self,last_name = "", first_name = ""):
+        return self.__customer_repo.search_customer_by_name(last_name, first_name)  
     
+    def search_customer_by_kennitala(self, kennitala):
+        return self.__customer_repo.search_customer_by_kennitala(kennitala)
+    
+    def remove_customer(self, kennitala):
+        return self.__customer_repo.remove_customer(kennitala)
+
     """ RESERVATIONS MENU FUNCTIONS """
     def new_reservation(self,customer):
         # OPTION 1
