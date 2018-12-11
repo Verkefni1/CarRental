@@ -8,7 +8,7 @@ class CustomerRepository:
         self.__customer = []
 
     def add_customer(self, customer):
-        with open("Customer.csv", "a+") as customers_file:
+        with open("./Data/Customer.csv", "a+") as customers_file:
             first_name = customer.get_first_name()
             last_name = customer.get_last_name()
             address = customer.get_address()
@@ -19,7 +19,7 @@ class CustomerRepository:
                                                         drivers_license, kennitala, current_rental_number))
     # returns customer if found, None if not
     def search_customer_by_name(self,last_name = "", first_name = ""):
-        with open("Customer.csv", "r") as customer_file:
+        with open("./Data/Customer.csv", "r") as customer_file:
             for line in customer_file.readlines():
                 f_name,l_name,address,drivers_license, kennitala, current_rental_number = line.split(",")
                 if l_name == last_name and f_name == first_name:
@@ -29,7 +29,17 @@ class CustomerRepository:
 
     # returns customer if found, None if not
     def search_customer_by_kennitala(self, kennitala):
-        with open("Customer.csv", "r") as customer_file:
+        with open("./Data/Customer.csv", "r") as customer_file:
+            for line in customer_file.readlines():
+                f_name,l_name,address,drivers_license, kt, current_rental_number = line.split(",")
+                if kennitala == kt:
+                    foundCust = Customer(l_name,f_name,address,drivers_license, kt, current_rental_number)
+                    return foundCust
+        return None 
+
+    # returns customer if found, None if not
+    def search_customer_by_kennitala(self, kennitala):
+        with open("./Data/Customer.csv", "r") as customer_file:
             for line in customer_file.readlines():
                 f_name,l_name,address,drivers_license, kt, current_rental_number = line.split(",")
                 if kennitala == kt:
@@ -39,7 +49,7 @@ class CustomerRepository:
 
     # removes customer if exists in file
     def remove_customer(self, kennitala):
-        with open("Customer.csv", 'r') as customer_file:
+        with open("./Data/Customer.csv", 'r') as customer_file:
             reader = csv.reader(customer_file)
             with open("customerTmp.csv", 'w+') as customer_file_tmp:
                 writer = csv.writer(customer_file_tmp)
@@ -47,6 +57,21 @@ class CustomerRepository:
                     if row[4] != kennitala:
                         writer.writerow(row)
         os.rename('customerTmp.csv', 'Customer.csv')
+
+    # updates customer if exists in file
+    def update_customer(self, kennitala, customer):
+        with open("./Data/Customer.csv", 'r') as customer_file:
+            reader = csv.reader(customer_file)
+            with open("./Data/customerTmp.csv", 'w+') as customer_file_tmp:
+                writer = csv.writer(customer_file_tmp)
+                for row in reader:
+                    print(row)
+                    if row[4] == kennitala:
+                        cust = [customer.get_first_name(), customer.get_last_name(), customer.get_address(), customer.get_drivers_license(), customer.get_kennitala(), 0]
+                        writer.writerow(cust)
+                    else:
+                        writer.writerow(row)
+        os.rename('./Data/customerTmp.csv', './Data/Customer.csv')
                 
 
     
