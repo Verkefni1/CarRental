@@ -1,6 +1,6 @@
 import csv
 import os
-from models.reservation import reservation
+from Models.reservation import Reservation
 
 class ReservationRepository:
 
@@ -9,10 +9,10 @@ class ReservationRepository:
 
 #customer og employee, I don't know if they should be here! inside add reservation(#,#)
 # If they are supposed to be here, then we need to check if user is manager!
-    def add_reservation(self, customer, employee):
+    def add_reservation(self, customer, employee, reservation):
         with open("./data/reservations.csv", "a+") as reservations_file:
-            customer = reservation.get_customer()
             reservation_number = reservation.get_reservation_number()
+            customer = reservation.get_customer()
             payment_information = reservation.get_payment_information()
             start_date = reservation.get_start_date()
             end_date = reservation.get_end_date()
@@ -20,17 +20,17 @@ class ReservationRepository:
             insurance = reservation.get_insurance()
             vehicle_id = reservation.get_vehicle_id()
             employee = reservation.get_employee()
-            reservations_file.write("{}, {}, {}, {}, {}, {}, {}, {}, {}\n".format(customer, reservation_number, payment_information, start_date, end_date, contract_length, insurance, vehicle_id, employee))
+            reservations_file.write("{}, {}, {}, {}, {}, {}, {}, {}, {}\n".format(reservation_number,customer, payment_information, start_date, end_date, contract_length, insurance, vehicle_id, employee))
 
-#Don't know what comes here completely.
-    def get_reservation(self, customer, employee):
-        if self.__reservations == []:
+    # returns reservation if found, None if not found
+    def get_reservation(self, res_number):
             with open("Reservations.csv", "r") as reservation_file:
                 for line in reservation_file.readlines():
-                    customer, reservation_number, payment_information, start_date, end_date, contract_length, insurance, vehicle_id, employee = line.split(",")
-                    new_reservation = reservation(customer, reservation_number, payment_information, start_date, end_date, contract_length, insurance, vehicle_id, employee)
-                    self.__reservations.append(new_reservation)
-        return self.__reservations
+                    reservation_number, customer, payment_information, start_date, end_date, contract_length, insurance, vehicle_id, employee = line.split(",")
+                    if res_number == reservation_number:
+                        foundRes = Reservation(reservation_number, customer, payment_information, start_date, end_date, contract_length, insurance, vehicle_id, employee)
+                        return foundRes
+            return None
 
 #Also confused with this part.
     def remove_reservation(self, reservation_number):
