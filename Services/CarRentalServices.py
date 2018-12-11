@@ -63,15 +63,13 @@ class CarRentalServices():
         return self.__customer_repo.remove_customer(kennitala)
 
     """ RESERVATIONS MENU FUNCTIONS """
-    def new_reservation(self,customer):
-        return self.__reservations_repo.new_reservation(customer)
+    def new_reservation(self, reservation):
+        return self.__reservations_repo.new_reservation(reservation)
     
-    def get_reservation(self,customer):
-        # OPTION 2
-        pass
+    def get_reservation(self, reservation_number):
+        return self.__reservations_repo.get_reservation(reservation_number)
     
     def get_all_reservations(self, employee):
-        # OPTION 3
         self.__employee_repo.employee_history(employee)
         return self.__reservations_repo.get_all_reservations()
 
