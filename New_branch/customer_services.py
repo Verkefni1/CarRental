@@ -10,7 +10,7 @@ def search_customer(self, last_name = "", first_name = ""):
             line = line.lower()
             if last_name in line or if first_name in line:
                 print(line)
-#Get customer information
+# Get customer information
             elif:
                 #print("No results")
                 return 0
