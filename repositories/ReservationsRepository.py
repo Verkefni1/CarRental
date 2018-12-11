@@ -9,7 +9,7 @@ class ReservationRepository:
 
 #customer og employee, I don't know if they should be here! inside add reservation(#,#)
 # If they are supposed to be here, then we need to check if user is manager!
-    def add_reservation(self, customer, employee):
+    def new_reservation(self, customer, employee):
         with open("./data/reservations.csv", "a+") as reservations_file:
             customer = reservation.get_customer()
             reservation_number = reservation.get_reservation_number()
