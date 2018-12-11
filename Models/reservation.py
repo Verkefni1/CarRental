@@ -2,7 +2,7 @@
 
 class Reservation:
 
-    def __init__(self, customer, reservation_number, payment_information, start_date, end_date, contract_length, insurance, vehicle_id, employee):
+    def __init__(self, reservation_number, customer, payment_information, start_date, end_date, contract_length, insurance, vehicle_id, employee):
         self.reservation_number = reservation_number
         self.customer = customer
         self.payment_information = payment_information
@@ -14,7 +14,7 @@ class Reservation:
         self.employee = employee
 
     def __str__(self):
-        return "Reservation number: {}\nCustomer: {}\n Payment information: {}\n Start date: {}\n End date: {}\n Contract length: {}\n Insurance: {}\n Vehicle ID: {}\n Employee: {}\n".format(self.customer, self.reservation_number, self.payment_information, self.start_date, self.end_date, self.contract_length, self.insurance, self.vehicle_id, self.employee)
+        return "Reservation number: {}\nCustomer: {}\n Payment information: {}\n Start date: {}\n End date: {}\n Contract length: {}\n Insurance: {}\n Vehicle ID: {}\n Employee: {}\n".format(self.reservation_number, self.customer, self.payment_information, self.start_date, self.end_date, self.contract_length, self.insurance, self.vehicle_id, self.employee)
     
     def get_reservation_number(self):
         return self.reservation_number
