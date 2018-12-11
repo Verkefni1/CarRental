@@ -179,12 +179,11 @@ class MainMenu:
             if action == "1":
                 # New reservation
                 # input customer details, create class with them, pass class into reservation services
-                print("New Reservation")
+                print("=== New Reservation ===")
+                
                 pass
             
             if action == "2":
-                choice = ["D", "E"]
-                userChoice = ""
                 #Search Reservations
                 print("=== Search Reservations ===")
                 res_number = input("Input Reservation Number: ")
