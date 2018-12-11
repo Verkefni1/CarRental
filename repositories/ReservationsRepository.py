@@ -1,6 +1,6 @@
 import csv
 import os
-from models.reservation import reservation
+from models.Reservation import Reservation
 
 class ReservationRepository:
 
@@ -30,7 +30,7 @@ class ReservationRepository:
                     customer, reservation_number, payment_information, start_date, end_date, contract_length, insurance, vehicle_id, employee = line.split(",")
                     new_reservation = reservation(customer, reservation_number, payment_information, start_date, end_date, contract_length, insurance, vehicle_id, employee)
                     self.__reservations.append(new_reservation)
-        return self.__reservations
+        return self.__reservations 
 
 #Also confused with this part.
     def remove_reservation(self, reservation_number):

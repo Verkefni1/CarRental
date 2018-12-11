@@ -64,8 +64,7 @@ class CarRentalServices():
 
     """ RESERVATIONS MENU FUNCTIONS """
     def new_reservation(self,customer):
-        # OPTION 1
-        pass
+        return self.__reservations_repo.new_reservation(customer)
     
     def get_reservation(self,customer):
         # OPTION 2

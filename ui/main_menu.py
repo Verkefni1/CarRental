@@ -130,7 +130,7 @@ class MainMenu:
         action = ""
         options = ["1", "2", "3"]
         while action not in options:
-            print("1. Register a customer\n2. Look Up Customer by name\n3. Look Up Customer by Kennitala 4. Remove Custmer\n5. Main Menu\n")
+            print("1. Register a customer\n2. Look Up Customer by name\n3. Look Up Customer by Kennitala\n4. Remove Custmer\n5. Main Menu\n")
             action = input("Enter: ")
 
             if action == "1":

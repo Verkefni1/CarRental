@@ -41,12 +41,12 @@ class CustomerRepository:
     def remove_customer(self, kennitala):
         with open("./Data/Customer.csv", 'r') as customer_file:
             reader = csv.reader(customer_file)
-            with open("customerTmp.csv", 'w+') as customer_file_tmp:
+            with open("./Data/customerTmp.csv", 'w+') as customer_file_tmp:
                 writer = csv.writer(customer_file_tmp)
                 for row in reader:
                     if row[4] != kennitala:
                         writer.writerow(row)
-        os.rename('customerTmp.csv', 'Customer.csv')
+        os.rename('./Data/customerTmp.csv', './Data/Customer.csv')
 
     # updates customer if exists in file
     def update_customer(self, kennitala, customer):
