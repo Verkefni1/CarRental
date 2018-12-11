@@ -116,7 +116,7 @@ class MainMenu:
                 # Retire Vehicle
                 print("=== Retire Vehicle ===")
                 vehicle_ID = input("Enter Vehicle ID: ")
-                self.__car_rental_service.remove_vehicle(vehicle)
+                self.__car_rental_service.remove_vehicle(vehicle_ID)
 
             elif action == "6":
                 print("Go back")
@@ -141,17 +141,20 @@ class MainMenu:
                 drivers_license = input("Driver's License Number: ")
                 kennitala = input("Kennitala: ")
                 address = input("Address: ")
-                customer = Customer(last_name,first_name,drivers_license,kennitala,address)
-                self.__car_rental_service.add_customer(self.__current_employee,customer)
+                customer = Customer(last_name, first_name, drivers_license, kennitala, address)
+                self.__car_rental_service.add_customer(self.__current_employee, customer)
 
             elif action == "2":
                 print("=== Customer Search ===")
                 last_name = input("Last Name: ")
                 first_name = input("First Name: ")
-                self.__car_rental_service.search_customer(last_name,first_name)
+                self.__car_rental_service.search_customer_by_name(self.__current_employee, last_name, first_name)
             
             elif action == "3":
-                print("Remove Customer")
+                if self.__current_employee.is_manager():
+                    print("=== Remove Customer ===")
+                    kennitala = input("Kennitala: ")
+                    self.__car_rental_service.remove_customer(kennitala)
 
             elif action == "4":
                 self.ui_menu()
