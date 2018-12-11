@@ -7,8 +7,7 @@ class ReservationRepository:
     def __init__(self):
         self.__reservations = []
 
-#customer og employee, I don't know if they should be here! inside add reservation(#,#)
-# If they are supposed to be here, then we need to check if user is manager!
+    # Add new reservation 
     def new_reservation(self, reservation):
         with open("./data/reservations.csv", "a+") as reservations_file:
             customer = reservation.get_customer()
@@ -22,7 +21,7 @@ class ReservationRepository:
             employee = reservation.get_employee()
             reservations_file.write("{}, {}, {}, {}, {}, {}, {}, {}, {}\n".format(customer, reservation_number, payment_information, start_date, end_date, contract_length, insurance, vehicle_id, employee))
 
-#Don't know what comes here completely.
+    # Displays all reservations in the system
     def get_all_reservations(self):
         if self.__reservations == []:
             with open("./Data/Reservations.csv", "r") as reservation_file:
@@ -32,6 +31,7 @@ class ReservationRepository:
                     self.__reservations.append(new_reservation)
         return self.__reservations
     
+    # finds reservation by reservation number if in the system 
     def get_reservation(self, res_number):
         with open("./Data/Reservations.csv", "r") as reservation_file:
             for line in reservation_file.readlines():
@@ -39,10 +39,23 @@ class ReservationRepository:
                 if res_number == reservation_number:
                     foundRes = Reservation(customer, reservation_number, payment_information, start_date, end_date, contract_length, insurance, vehicle_id, employee)
                     return foundRes
-        return None
+        return None 
+ 
+    # if the reservation is not found it returns None ?
+    def edit_reservation(self, reservation_number, reservation):
+        with open("./Data/Reservations.csv", "r") as reservation_file:
+            reader = csv.reader(reservation_file)
+            with open("./Data/ReservationsTMP.csv", "w+") as reservation_file_tmp:
+                writer = csv.writer(reservation_file_tmp)
+                for row in reader.readlines():
+                    if row[1] == reservation_number:
+                        res = [ reservation.customer(), reservation.reservation_number(), reservation.payment_information(), reservation.start_date(), reservation.end_date(), reservation.contract_length(), reservation.insurance(), reservation.vehicle_id(), reservation.employee() ]
+                        writer.writerow(res)
+                    else:
+                        writer.writerow(row)
+        os.rename("./Data/ReservationsTMP.csv", "./Data/Reservations.csv")
 
-
-#Also confused with this part.
+    # Removes reservation if found in the system
     def remove_reservation(self, reservation_number):
         with open("./Data/Reservations.csv", 'r') as reservation_file:
             reader = csv.reader(reservation_file)

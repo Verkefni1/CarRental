@@ -175,6 +175,7 @@ class MainMenu:
         while action not in options: # Need to use the orders file to check if the input matches an order number
             print("1. New Reservation\n2. Search Reservations\n3. Display All Reservations\n4. Main Menu")
             action = input()
+            
             if action == "1":
                 # New reservation
                 # input customer details, create class with them, pass class into reservation services
@@ -182,12 +183,22 @@ class MainMenu:
                 pass
             
             if action == "2":
+                choice = ["D", "E"]
+                userChoice = ""
                 #Search Reservations
-                print("Search Reservations")
-                #order_num = input("Input Reservation Number: ")
-                #if order_num in ## need to use the orders file here
+                print("=== Search Reservations ===")
+                res_number = input("Input Reservation Number: ")
+                self.__car_rental_service.get_reservation(res_number)
+                userChoice = input("Press D for delete\n E for edit").upper()
+                if userChoice == "e":
+                    self.__car_rental_service.edit_reservation()
+                
+
+
+                #if red_number in ## need to use the orders file here
+                
                 # ALLOW TO DELETE RES HERE
-                """ self.__car_rental_service.get_reservation() """
+            
             elif action == "3":
                 ## Show all reservations
                 print("Showing All Reservations")
