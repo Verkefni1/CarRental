@@ -7,8 +7,8 @@ class ReservationRepository:
     def __init__(self):
         self.__reservations = []
 
-    # Add a new reservation, employee/manager inputs information of
-    # the customer and adds him to the customer database
+    # Add a new reservation, employee/manager inputs the customers information 
+    # and adds him to the customer database
     def add_reservation(self, reservation):
         with open("Reservations.csv", "a+") as reservations_file:
             reservation_number = reservation.get_reservation_number()
@@ -28,9 +28,7 @@ class ReservationRepository:
     def get_reservation(self, res_number):
             with open("Reservations.csv", "r") as reservation_file:
                 for line in reservation_file.readlines():
-                    reservation_number, customer, payment_information,
-                    start_date, end_date, contract_length, insurance,
-                    vehicle_id, employee = line.split(",")
+                    reservation_number, customer, payment_information, start_date, end_date, contract_length,insurance, vehicle_id, employee = line.split(",")
                     if res_number == reservation_number:
                         foundRes = Reservation(
                                   reservation_number, customer,
@@ -40,6 +38,7 @@ class ReservationRepository:
                         return foundRes
             return None
 
+    #Edits or updates selected reservation. Employee searches for reservation numer to apply changes.
     def edit_reservation(self, reservation_number, reservation):
         with open("Reservations.csv", "r") as reservation_file:
             reader = csv.reader(reservation_file)
@@ -61,7 +60,7 @@ class ReservationRepository:
                         writer.writerow(row)
         os.rename('ReservationsTmp.csv', 'Reservations.csv')
 
-
+    # Removes reservation. Employee searches for the reservation number to delete the reservation
     def remove_reservation(self, reservation_number):
         with open("Reservations.csv", 'r') as reservation_file:
             reader = csv.reader(reservation_file)
@@ -72,6 +71,7 @@ class ReservationRepository:
                         writer.writerow(row)
         os.rename('ReservationsTmp.csv', 'Reservations.csv')
 
+    # Prints out all reservations in the reservation database
     def get_all_reservations(self, reservation):
         with open("Reservations.csv", 'r') as reservation_file:
             for row in reservation_file:
