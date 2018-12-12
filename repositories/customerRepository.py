@@ -32,8 +32,7 @@ class CustomerRepository:
     def search_customer_by_kennitala(self, kennitala):
         with open("./Data/Customer.csv", "r") as customer_file:
             for line in customer_file.readlines():
-            f_name, l_name, address, drivers_license, kt,
-                current_rental_number = line.split(",")
+                f_name, l_name, address, drivers_license, kt, current_rental_number = line.split(",")
                 if kennitala == kt:
                     foundCust = Customer(l_name, f_name, address, drivers_license,
                     kt, current_rental_number)
