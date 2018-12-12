@@ -28,23 +28,4 @@ class CarRentalServices():
     def get_all_reservations(self, employee):
         return self.__car_rental_service.get_all_reservations()
 
-       def __init__(self):
-        self.__customer_repo = CustomerRepository()
-
-    def add_customer(self, employee, customer):
-        return self.__customer_repo.add_customer(customer)
-
-    def search_customer(self,last_name = "", first_name = ""):
-        return self.__customer_repo.search_customer(last_name, first_name)  
     
-    def search_customer_by_kennitala(self, kennitala):
-        return self.__customer_repo.search_customer_by_kennitala(kennitala)
-
-    def remove_customer(self, kennitala):
-        return self.__customer_repo.remove_customer(kennitala)
-
-    def update_customer(self, kennitala, customer):
-        return self.__customer_repo.update_customer(kennitala, customer)
-    
-    def get_all_customers(self):
-        return self.__customer_repo.get_all_customers()
