@@ -79,6 +79,7 @@ class CustomerRepository:
                         writer.writerow(row)
         os.rename('./Data/customerTmp.csv', './Data/Customer.csv')
 
+    # Prints out all customers in database
     def get_all_customers(self):
         with open("Customer.csv", 'r') as customer_file:
             for row in customer_file:
