@@ -65,7 +65,6 @@ class CustomerRepository:
                         writer.writerow(row)
         os.rename('./Data/customerTmp.csv', './Data/Customer.csv')
                 
-
     
 
 

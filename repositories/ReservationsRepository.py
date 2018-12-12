@@ -57,6 +57,6 @@ class ReservationRepository:
     def get_all_reservations(self, reservation):
         with open("Reservations.csv", 'r') as reservation_file:
             for row in reservation_file:
-                return print(row)
+                print(row)
                 
     
