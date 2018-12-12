@@ -7,7 +7,7 @@ class ReservationRepository:
     def __init__(self):
         self.__reservations = []
 
-    # Add new reservation 
+    # Add new reservation
     def new_reservation(self, reservation):
         with open("./data/reservations.csv", "a+") as reservations_file:
             customer = reservation.get_customer()
@@ -19,7 +19,9 @@ class ReservationRepository:
             insurance = reservation.get_insurance()
             vehicle_id = reservation.get_vehicle_id()
             employee = reservation.get_employee()
-            reservations_file.write("{}, {}, {}, {}, {}, {}, {}, {}, {}\n".format(customer, reservation_number, payment_information, start_date, end_date, contract_length, insurance, vehicle_id, employee))
+            reservations_file.write("{}, {}, {}, {}, {}, {}, {}, {}, {}\n".format(
+                customer, reservation_number, payment_information, start_date,
+                end_date, contract_length, insurance, vehicle_id, employee))
 
     # Displays all reservations in the system
     def get_all_reservations(self):
@@ -55,7 +57,7 @@ class ReservationRepository:
                 writer = csv.writer(reservation_file_tmp)
                 for row in reader.readlines():
                     if row[1] == reservation_number:
-                        res = [ reservation.customer(),
+                        res = [reservation.customer(),
                         reservation.reservation_number(),
                         reservation.payment_information(),
                         reservation.start_date(),
@@ -63,7 +65,7 @@ class ReservationRepository:
                         reservation.contract_length(),
                         reservation.insurance(),
                         reservation.vehicle_id(), 
-                        reservation.employee() ]
+                        reservation.employee()]
                         writer.writerow(res)
                     else:
                         writer.writerow(row)
