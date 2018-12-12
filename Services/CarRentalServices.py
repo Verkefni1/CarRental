@@ -58,9 +58,15 @@ class CarRentalServices():
     
     def search_customer_by_kennitala(self, kennitala):
         return self.__customer_repo.search_customer_by_kennitala(kennitala)
-    
+
     def remove_customer(self, kennitala):
         return self.__customer_repo.remove_customer(kennitala)
+
+    def update_customer(self, kennitala, customer):
+        return self.__customer_repo.update_customer(kennitala, customer)
+    
+    def get_all_customers(self):
+        return self.__customer_repo.get_all_customers()
 
     """ RESERVATIONS MENU FUNCTIONS """
     def new_reservation(self, reservation):
@@ -73,3 +79,4 @@ class CarRentalServices():
         self.__employee_repo.employee_history(employee)
         return self.__reservations_repo.get_all_reservations()
 
+ 
