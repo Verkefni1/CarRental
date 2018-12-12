@@ -7,6 +7,7 @@ class CustomerRepository:
     def __init__(self):
         self.__customer = []
 
+    # Adds customer to customer database 
     def add_customer(self, customer):
         with open("./Data/Customer.csv", "a+") as customers_file:
             first_name = customer.get_first_name()
@@ -19,7 +20,7 @@ class CustomerRepository:
                 first_name, last_name, address,
                 drivers_license, kennitala, current_rental_number))
 
-    # returns customer if found, None if not
+    # returns customer if found, returns None if not found
     def search_customer_by_name(self, last_name="", first_name=""):
         with open("./Data/Customer.csv", "r") as customer_file:
             for line in customer_file.readlines():
@@ -31,7 +32,7 @@ class CustomerRepository:
                     return foundCust
         return None
 
-    # returns customer if found, None if not
+    # returns customer if found, returns None if not found
     def search_customer_by_kennitala(self, kennitala):
         with open("./Data/Customer.csv", "r") as customer_file:
             for line in customer_file.readlines():
@@ -44,7 +45,7 @@ class CustomerRepository:
         return None
 
 
-    # removes customer if exists in file
+    # removes customer if exists in file.
     def remove_customer(self, kennitala):
         with open("./Data/Customer.csv", 'r') as customer_file:
             reader = csv.reader(customer_file)

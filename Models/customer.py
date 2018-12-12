@@ -10,7 +10,7 @@ class Customer:
         self.current_rental_order_number = current_rental_order_number
     
     def __str__(self):
-        return "Customer:\n Full name: {}\n Address: {}\n Drivers license: {}\n Kennitala: {}\n Current rental order number: {}".format(self.first_name + " " + self.last_name, self.address, 
+        return "Customer Details\n Full name: {}\n Address: {}\n Drivers license: {}\n Kennitala: {}\n Current rental order number: {}".format(self.first_name + " " + self.last_name, self.address, 
                  self.drivers_license, self.kennitala, self.current_rental_order_number)
     
     def get_last_name(self):
