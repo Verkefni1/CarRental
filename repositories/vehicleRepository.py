@@ -2,9 +2,9 @@ from models.Vehicle import Vehicle
 import csv
 import os
 
-class VehicleRepository():
+class VehicleRepository(object):
 
-    def __init__(self, vehicle):
+    def __init__(self):
         self.__vehicle = []
 
     def add_vehicle(self, employee, manager, vehicle):
@@ -16,7 +16,7 @@ class VehicleRepository():
             year = vehicle.get_year()
             color = vehicle.get_color()
             transmission = vehicle.get_transmission()
-            Vehicles_file.write("{}, {}, {}, {}, {}, {}, {}\n").format(IDnumber, body, make, model, year, color, transmission))
+            Vehicles_file.write("{}, {}, {}, {}, {}, {}, {}\n").format(IDnumber, body, make, model, year, color, transmission)
 
     def get_all_vehicles(self):
         if self.__vehicle == []:

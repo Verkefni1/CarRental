@@ -11,7 +11,10 @@ class Employee:
         return self.__password
 
     def is_manager(self):
-        return self.manager
+        if self.manager == "False":
+            return False
+        else:
+            return True
 
     def __str__(self):
         return "Username: {}\nManager: {}".format(self.username, self.manager)

@@ -1,6 +1,6 @@
 import csv
 import os
-from models.Customer import Customer
+from models.customer import Customer
 
 class CustomerRepository:
 

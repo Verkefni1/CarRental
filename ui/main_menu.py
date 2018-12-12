@@ -16,26 +16,30 @@ class MainMenu:
     def ui_login(self):
         action = ""
         while action != "y":
-            print("====== Employee Login ======\n")
+            print("Employee Login")
+            # username cannot be empty
             username = input("Username: ").lower()
             print("User password input is hidden. Press Enter to proceed.")
-            password = getpass.getpass() # built-in Python module
-            print("")
-            # creates current_employee class using username and password
-            # login() method checks if it's a valid employee and returns 
-            # true if employee found in data file and given password matches. 
-            # Next method checks for employee
-            # admin status and sets it according to data file.
-            current_employee = Employee(username, password)
+            password = getpass.getpass()
+            if self.__employee_services.get_employee_class(username,password):
+                 # built-in Python module
+                # creates current_employee class using username and password
+                # login() method checks if it's a valid employee and returns 
+                # true if employee found in data file and given password matches. 
+                # Next method checks for employee
+                # admin status and sets it according to data file.
+
+                self.__current_employee = self.__employee_services.get_employee_class(username,password)
             
-            if self.__employee_services.login(current_employee,password):
-                self.__current_employee = current_employee
-                # self.__current_employee.manager = current_employee.is_manager()
-                # Must pass current_employee class to main menu to 
-                # carry employee data to method and rest of program
+                #if self.__employee_services.login(current_employee,password):                    
+                #self.__current_employee = current_employee
+                print(self.__current_employee)
+                    # self.__current_employee.manager = current_employee.is_manager()
+                    # Must pass current_employee class to main menu to 
+                    # carry employee data to method and rest of program
                 self.ui_menu()
             else:
-                print("Invalid username or password")
+                print("Invalid Username Or Password")
                 print("\n")
 
     def ui_menu(self):
@@ -116,7 +120,7 @@ class MainMenu:
                 # Retire Vehicle
                 print("=== Retire Vehicle ===")
                 vehicle_ID = input("Enter Vehicle ID: ")
-                self.__car_rental_service.remove_vehicle(vehicle)
+                self.__car_rental_service.remove_vehicle(vehicle_ID)
 
             elif action == "6":
                 print("Go back")
@@ -191,19 +195,20 @@ class MainMenu:
                 
     def employee_menu(self):
         print("=== EMPLOYEE OPTIONS ===")
-        print("1. Change Password\n6. Main Menu")
+        print("1. Change Password\n7. Main Menu")
+        print(self.__current_employee.is_manager())
         if self.__current_employee.is_manager():
             print("=== Management Only ===")
             print("2. Print Current Employees\n3. Grant Admin Rights\n4. View Employee Activity\n5. Add Employee\n6. Remove Employee")
         action = input()
         if action == "1":
             print("=== Change Password ===")
-            print("Please Re-Enter Your Password")
+            print("Please Verify Current User")
             password = getpass.getpass()
-            if self.__employee_services.login(self.__current_employee.get_username,password):
+            if self.__employee_services.login(self.__current_employee,password):
                 print("Input Hidden - Enter New Password And Press Enter")
                 new_password = getpass.getpass()
-                self.__employee_services.employee_change_password(self.__current_employee,new_password)
+                self.__employee_services.employee_change_password(self.__current_employee.get_username(),new_password)
         
         elif action == "7":
             self.ui_menu()
@@ -212,17 +217,16 @@ class MainMenu:
             if action == "2":
                 if self.verify_pass():
                     print("Current Employees")
-                    for employee in self.__employee_services.get_all_employees():
-                        print(employee)
-                    
-        
+                    employee_list = self.__employee_services.get_all_employees()
+                    self.print_list(employee_list)
+                        
             elif action == "3":            
                 if self.verify_pass():
                     print("Grant Admin Rights")
                     # new_admin musbt be string pulled from repo
                     new_admin = input("Enter Username: ")
-                    confirm = input("Warning! You are about to give {} administration rights. Are you sure? (Y/N)").format(new_admin)
-                    if confirm == "Y".lower():
+                    confirm = input("Warning! You are about to give {} administration rights. Are you sure? (Y/N): ".format(new_admin)).lower()
+                    if confirm == "y":
                         if self.__employee_services.is_employee(new_admin):
                             self.__employee_services.make_admin(self.__current_employee,new_admin)
                         else:
@@ -238,7 +242,8 @@ class MainMenu:
                     employee_history = input("Enter Username: ")
                     if self.__employee_services.is_employee(employee_history):
                     # must prompt for username and check for validity
-                        self.__employee_services.get_employee_history(employee_history)
+                        pass
+                        #self.__employee_services.get_employee_history(employee_history)
                     else:
                         self.not_employee()
             
@@ -262,15 +267,31 @@ class MainMenu:
                         self.__employee_services.remove_employee(self.__current_employee,username)
                     else:
                         self.not_employee()
+            
         else:
             print("Invalid input")
+        
 
     def verify_pass(self):
         print("Please Re-Enter Password")
         password = getpass.getpass()
-        return self.__employee_services.login(self.__current_employee,password)
+        if self.__employee_services.login(self.__current_employee,password):
+            return True
+        else:
+            print("Invalid Password")
 
     def not_employee(self):
         print("Employee Not Found")
 
+    def print_list(self,passed_list):
+        for item in passed_list:
+            print(item)
+
+    def calculate_costs(self,body,insurance,length):
+        total_costs = self.__car_rental_service.calculate_costs(body,insurance,length)
+        return total_costs
+
 ### MUST RUN ON NEW_FILE.PY OR ELSE IT WONT RUN
+
+
+
