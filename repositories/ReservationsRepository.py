@@ -65,6 +65,3 @@ class ReservationRepository:
                     if row[1] != reservation_number:
                         writer.writerow(row)
         os.rename('./Data/ReservationsTmp.csv', './Data/Reservations.csv')
-
-
-    
