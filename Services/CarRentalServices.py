@@ -56,14 +56,14 @@ class CarRentalServices():
     def search_customer_by_name(self,last_name = "", first_name = ""):
         return self.__customer_repo.search_customer_by_name(last_name, first_name)  
     
-    def search_customer_by_kennitala(self, kennitala):
-        return self.__customer_repo.search_customer_by_kennitala(kennitala)
+    def search_customer_by_ssn(self, ssn):
+        return self.__customer_repo.search_customer_by_kennitala(ssn)
 
-    def remove_customer(self, kennitala):
-        return self.__customer_repo.remove_customer(kennitala)
+    def remove_customer(self, ssn):
+        return self.__customer_repo.remove_customer(ssn)
 
-    def update_customer(self, kennitala, customer):
-        return self.__customer_repo.update_customer(kennitala, customer)
+    def update_customer(self, ssn, customer):
+        return self.__customer_repo.update_customer(ssn, customer)
     
     def get_all_customers(self):
         return self.__customer_repo.get_all_customers()
