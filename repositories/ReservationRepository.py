@@ -108,7 +108,7 @@ class ReservationRepository:
     #    with open("../data/reservations.csv", "a+") as reservations_file:
     #        drivers
 
-    def check_dates(self, body_type, from_date, to_date): # FINAL
+    def get_reservations(self): # FINAL
         """ This function opens up the reservations file to count how many cars are reserved of the requested body_type
         it then takes the dates for those cars to see if any of them finish their reservation
         time before the time the current customer wants to rent a car.
@@ -117,16 +117,9 @@ class ReservationRepository:
         Available_count determines how many cars are reserved that will become available by the time we want to reserve a
         car of that body at a certain time. it then adds the remaining cars to get a total count of available cars.
         """
-        available_count = 0
-        body_amount = 0
+        res_list = []
         with open("../data/reservations.csv", "r") as reservations_file:
             reader = csv.reader(reservations_file)
             for car in reader:
-                if body_type == car[6]:#car[6] gives the body type
-                    body_amount += 1
-                    if from_date >= car[4]:#car[4] gives the to_date for the car. if it finishes being rented out before the time 
-                                           #I want to rent the car then it is available
-                        available_count += 1
-        remaining = 10 - body_amount #body_amount counts how many cars of this type are in the reservations data file
-        available_count += remaining # since we will only have 30 cars, 10 of each type remaining tells us how many cars of this type
-        return available_count       # are available. we then add the remaining cars to the availabe count
+                res_list.append(car)
+        return res_list
