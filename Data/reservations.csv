@@ -1,0 +1,7 @@
+0,customer_license_num,CC_number,start_date,end_date,insurance(Y/N),body,employee
+1,11,111,2018/12/12,2018/12/20,True,SUV,jon
+2,22,222,2018/12/12,2018/12/20,False,Sedan,jon
+3,33,333,2018/12/15,2018/12/18,True,Sedan,jon
+4,44,444,2018/12/12,2018/12/20,True,Hatchback,jon
+5,55,555,2018/12/15,2018/12/18,True,Hatchback,jon
+6,66,666,2018/12/20,2018/12/25,False,Hatchback,jon
