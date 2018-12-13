@@ -7,6 +7,7 @@ class CustomerRepository:
     def __init__(self):
         self.__customer = []
 
+    # Adds customer into customer file
     def add_customer(self, customer):
         with open("./Data/Customer.csv", "a+") as customers_file:
             first_name = customer.get_first_name()
@@ -43,10 +44,7 @@ class CustomerRepository:
                     return foundCust
         return None
 
-
-    # removes customer if exists in file. reads customer file and writes all 
-    # customers, except the customer the employee wants to remove, into a new temp file.
-    # the temp file is then renamed.
+    # removes customer if they exist in the customer file. 
     def remove_customer(self, kennitala):
         with open("./Data/Customer.csv", 'r') as customer_file:
             reader = csv.reader(customer_file)
@@ -57,9 +55,8 @@ class CustomerRepository:
                         writer.writerow(row)
         os.rename('./Data/customerTmp.csv', './Data/Customer.csv')
 
-    # updates customer if exists in file. 
-    # Search for customer by kennitala that needs to be updated.
-    # Enter new details for selected customer
+    # updates customer if exists in the customer file. 
+    # Search for customer by entering the customers kennitala
     def update_customer(self, kennitala, customer):
         with open("./Data/Customer.csv", 'r') as customer_file:
             reader = csv.reader(customer_file)
@@ -79,11 +76,11 @@ class CustomerRepository:
                         writer.writerow(row)
         os.rename('./Data/customerTmp.csv', './Data/Customer.csv')
 
-    # Prints out all customers in database
+    # Prints out all customers in the customer file
     def get_all_customers(self):
         with open("Customer.csv", 'r') as customer_file:
             for row in customer_file:
-                print(row)
+                return row
 
 
         
