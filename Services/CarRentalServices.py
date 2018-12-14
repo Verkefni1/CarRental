@@ -49,16 +49,12 @@ class CarRentalServices():
         """ Remove vehicle from DB"""
         self.__vehicle_repo.remove_vehicle(vehicle)
 
-    """ CUSTOMER MENU FUNCTIONS """
+  """ CUSTOMER MENU FUNCTIONS """
     def add_customer(self, employee, customer):
         return self.__customer_repo.add_customer(customer)
 
-    def search_customer_by_name(self, last_name="", first_name=""):
-        return self.__customer_repo.search_customer_by_name(
-            last_name, first_name)
-
     def search_customer_by_ssn(self, ssn):
-        return self.__customer_repo.search_customer_by_kennitala(ssn)
+        return self.__customer_repo.search_customer_by_ssn(ssn)
 
     def remove_customer(self, ssn):
         return self.__customer_repo.remove_customer(ssn)
