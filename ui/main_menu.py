@@ -167,7 +167,7 @@ class MainMenu:
             elif action == "4":  # Edit customer
                 edit_action = ""
                 edit_options = ["1", "2", "3", "4", "5", "6", "7"]
-                
+
                 ssn = input("Enter Customers SSN: ")
 
                 print("\nWhat would you like to change?\n")
@@ -211,7 +211,7 @@ class MainMenu:
                     self.__car_rental_service.remove_customer(ssn)
                 else:
                     pass
-            
+
             elif action == "6":
                 print("=== Displaying All Customers ===")
                 self.__car_rental_service.get_all_customers():
