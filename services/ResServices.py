@@ -137,3 +137,56 @@ class ResServices():
             if vehicle[1] == body_type:
                 inventory_body_type += 1
         return inventory_body_type
+
+    def display_available_vehicles(self):
+        """
+        Returns list of available vehicles
+        for current day
+        """
+
+        current_day = self.current_day_str()
+
+        rate_list = self.__reservation_repo.get_rates()
+        available_car_list = []
+
+        for rate in rate_list[0:-1]:
+            available_car_list.append(self.check_availability(
+                                      rate[0], current_day,
+                                      current_day))
+            available_car_list.append(rate[0])
+        return available_car_list
+
+    def display_reserved_vehicles(self):
+        """
+        Returns list of unavailable vehicles
+        for current day
+        """
+        rate_list = self.__reservation_repo.get_rates()
+        res_list = self.__reservation_repo.get_reservations()
+        matching_res = []
+        res_class_list = []
+
+        for rate in rate_list[0:-1]:
+            for res in res_list:
+                if rate[0].lower() == res[7].lower():
+                    matching_res.append(res)
+        for res in matching_res:
+            res_class_list.append(self.make_reservation_class(res))
+
+        return res_class_list
+
+    def current_day_str(self):
+        current_date = datetime.today()
+        year = current_date.year
+        month = current_date.month
+        day = current_date.day
+        current_date_str = "{}/{}/{}".format(year, month, day)
+        return current_date_str
+
+    def make_reservation_number(self):
+        res_list = self.__reservation_repo.get_reservations()
+        max_number = 0
+        for res in res_list:
+            if int(res[0]) > max_number:
+                max_number = int(res[0])
+        return max_number + 1

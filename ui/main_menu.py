@@ -66,29 +66,30 @@ class MainMenu:
 
     def vehicle_menu(self):
         action = ""
-        options = ["1", "2", "3", "4"]
+        options = ["1", "2", "3", "4", "5"]
         self.header_1("Vehicles")
         while action not in options:
 
             print("1. Display Available Vehicles\n"
                   "2. Display Currently Rented Vehicles")
             if self.__current_employee.is_manager():
-                print("=== Management Options ===\n")
-                print("2. Add Vehicle to Fleet\n"
-                      "3. Retire Vehicle\n")
-            print("4. Main Menu")
+                self.format_warning("Management Options")
+                print("3. Add Vehicle to Fleet\n"
+                      "4. Retire Vehicle\n")
+            print("5. Main Menu")
 
             action = input("Enter: ").lower()
 
             if action == "1":
                 print("Displaying Available Vehicles")
-                self.__car_rental_service.get_vehicles_by_availability(
-                                               self.__current_employee)
+                available_list = self.__res_services.display_available_vehicles()
+                self.format_list_of_list(available_list)
             elif action == "2":
                 print("Displaying Rented Vehicles")
-                self.__car_rental_service.get_all_vehicles_by_availability(
-                                                self.__current_employee)
-            elif action == "2":
+                reserved_today = self.__res_services.display_reserved_vehicles()
+                self.print_list(reserved_today)
+
+            elif action == "3":
                 if self.__current_employee.is_manager():
                     print("Add Vehicle To Fleet")
                     IDnumber = input("Car ID: ")
@@ -105,13 +106,13 @@ class MainMenu:
                 else:
                     pass
 
-            elif action == "3":
+            elif action == "4":
                 # Retire Vehicle
                 print("=== Retire Vehicle ===")
                 vehicle_ID = input("Enter Vehicle ID: ")
                 self.__car_rental_service.remove_vehicle(vehicle_ID)
 
-            elif action == "4":
+            elif action == "5":
                 print("Go back")
                 self.ui_menu()
 
@@ -130,7 +131,7 @@ class MainMenu:
             action = input("Enter: ")
 
             if action == "1":
-                print("=== Registering New Customer ===")
+                self.header_2("Registering New Customer")
                 print("Enter Customer Details: ")
                 last_name = input("Last Name: ")
                 first_name = input("First Name: ")
@@ -143,7 +144,7 @@ class MainMenu:
                     self.__current_employee, customer)
 
             elif action == "2":
-                print("=== Customer Search ===")
+                self.header_2("Customer Search")
                 last_name = input("Last Name: ")
                 first_name = input("First Name: ")
                 self.__car_rental_service.search_customer_by_name(
@@ -173,6 +174,7 @@ class MainMenu:
             print("")
 
             if action == "1":
+                self.header_2("Making a Reservation")
                 customer_drivers_license = input("Drivers license number: ")
                 body_type = input("Body type: ")
                 print("Enter dates in this format (yyyy/mm/dd)")
@@ -203,17 +205,16 @@ class MainMenu:
                 cost = self.__res_services.calculate_costs(
                           body_type, insurance, res_length)
                 # COST NEEDS TO BE PUT SOMEWHERE WHERE WE CAN PRINT IT OUT
+
                 credit_card = input("Enter Credit Card number: ")
                 payment_method = input("Payment method "
-                                       "(Cash/Credit): ").lower()
+                                       "(Enter Cash or Credit): ").lower()
                 if payment_method != "cash" and payment_method != "credit":
                     print("Invalid input")
                     self.reservations_menu()
 
                 reservation_number = (self.__res_services.
                                       make_reservation_number())
-
-                # vehicle_id = function that generates the id
 
                 new_reservation = Reservation(reservation_number,
                                               customer_drivers_license,
@@ -235,6 +236,7 @@ class MainMenu:
 
             elif action == "3":
                 # Edit res
+                self.header_2("Edit Reservation")
                 edit_action = ""
                 edit_options = ["1", "2", "3", "4", "5", "6", "7"]
                 res_num = input("Enter Reservation Number: ")
@@ -286,6 +288,7 @@ class MainMenu:
 
             elif action == "4":
                 # cancel reservation
+                self.header_2("Cancel Reservation")
                 res_num = input("Enter reservation number: ")
                 search_results = (self.__res_services.search_res(res_num))
                 print(search_results)
@@ -326,7 +329,7 @@ class MainMenu:
         action = input()
         if action == "1":
             self.header_1("Change Password")
-            print("Please Verify Current User")
+            self.format_warning("Please Verify Current User")
             password = getpass.getpass()
             if self.__employee_services.login(self.__current_employee,
                                               password):
@@ -351,7 +354,8 @@ class MainMenu:
                     print("Grant Admin Rights")
                     # new_admin musbt be string pulled from repo
                     new_admin = input("Enter Username: ")
-                    confirm = (input("Warning! You are about to give {} "
+                    self.format_warning("Warning !!! ")
+                    confirm = (input("You are about to give {} "
                                      "administration rights. "
                                      "Are you sure? (Y/N): ".
                                      format(new_admin)).lower())
@@ -359,6 +363,7 @@ class MainMenu:
                         if self.__employee_services.is_employee(new_admin):
                             self.__employee_services.make_admin(
                                 self.__current_employee, new_admin)
+                            self.header_2("{} is now admin".format(new_admin))
                             self.employee_menu()
                         else:
                             self.not_employee()
@@ -415,3 +420,24 @@ class MainMenu:
         """
         header_text = header_text.upper()
         print("\n=== {} ===".format(header_text))
+
+    def header_2(self, header_text):
+        """
+        -- Header 2 --
+        """
+        header_text = header_text.capitalize()
+        print("\n--- {} ---".format(header_text))
+    
+    def format_warning(self, warning_text):
+        """
+        ****** WARNING ******
+        """
+        warning_text = warning_text.upper()
+        print("\n***** {} *****".format(warning_text))
+
+    def format_list_of_list(self, the_list):
+        
+        print("{} {}s\n"
+              "{} {}s\n"
+              "{} {}s\n".format(the_list[0], the_list[1], the_list[2],
+                                the_list[3], the_list[4], the_list[5]))
