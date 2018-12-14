@@ -125,7 +125,7 @@ class MainMenu:
             else:
                 print("Invalid input")
 
-  def customer_menu(self):
+    def customer_menu(self):
         print("=== CUSTOMERS ===\n")
         action = ""
         options = ["1", "2", "3", "4", "5", "6"]
