@@ -1,6 +1,6 @@
 class Reservation:
 
-    def __init__(self, reservation_number, customer_license, credit_card, from_date, to_date, insurance, payment_method, body_type, current_employee):
+    def __init__(self, reservation_number, customer_license, credit_card, from_date, to_date, insurance, payment_method, body_type, current_employee,vehicleID="Not Picked Up Yet"):
         self.reservation_number = reservation_number
         self.customer_license = customer_license
         self.credit_card = credit_card
@@ -10,6 +10,7 @@ class Reservation:
         self.payment_method = payment_method
         self.body_type = body_type
         self.employee = current_employee
+        self.vehicleID = vehicleID
 
 
     def __str__(self):
@@ -21,9 +22,10 @@ class Reservation:
         'Insurance: {}\n'
         'Payment Method: {}\n'
         'Vehicle Body Type: {}\n'
+        'Vehicle ID Number: {}\n'
         'Employee: {}\n'.format(self.reservation_number,self.customer_license,
         self.hide_credit_card(),self.from_date, self.to_date, self.insurance_bool_as_word(),
-        self.payment_method, self.body_type, self.employee))
+        self.payment_method, self.body_type, self.vehicleID, self.employee))
 
     def get_customer_license(self):
         return self.customer_license
@@ -62,4 +64,5 @@ class Reservation:
             ins_str = "Yes"
             return ins_str
         else:
+            ins_str = "No"
             return ins_str

@@ -167,7 +167,11 @@ class MainMenu:
         self.header_1("Reservations")
         while action not in options:
             print("AVAILABLE OPTIONS:")
-            print("1. Make reservation\n2. Lookup reservation\n3. Edit reservation\n4. Cancel reservation\n5. Go back")
+            print("1. Make reservation\n"
+                  "2. Lookup reservation\n"
+                  "3. Edit reservation\n"
+                  "4. Cancel reservation\n"
+                  "5. Go back")
             action = input("Enter: ")
             print("")
 

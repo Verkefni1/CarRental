@@ -19,11 +19,14 @@ class ResServices():
         """
         reservation_class = Reservation(reservation_list[0], reservation_list[1], reservation_list[2], 
                                         reservation_list[3], reservation_list[4], reservation_list[5],
-                                        reservation_list[6],reservation_list[7],reservation_list[8])
+                                        reservation_list[6],reservation_list[7],reservation_list[8],reservation_list[9])
         return reservation_class
 
     def make_res(self, new_res):
         return self.__reservation_repo.make_res(new_res)
+    
+    def cancel_res(self,res_number):
+        self.__reservation_repo.cancel_reservation(res_number)
 
     def search_res(self, res_number):
         """

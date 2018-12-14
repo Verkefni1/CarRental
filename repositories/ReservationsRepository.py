@@ -88,3 +88,19 @@ class ReservationRepository:
             for car in reader:
                 res_list.append(car)
         return res_list
+
+    def cancel_reservation(self,resID):
+        """
+        Compares parameter reservation IDnumber to those in vehicle data file
+        and removes reservation with IDnumber match, of which there should
+        only be one.
+        """
+        with open("./data/reservations.csv","r") as reservations_file:
+            reader =  csv.reader(reservations_file)
+            with open("./data/reservations_temp.csv","w+" newline='') as reservations_temp:
+                writer = csv.writer(reservations_temp)
+                for row in reader:
+                    if row[0] != resID:
+                        writer.writerow(row)
+        os.remove('./data/reservations.csv')
+        os.rename('./data/reservations_temp.csv','./data/reservations.csv')
