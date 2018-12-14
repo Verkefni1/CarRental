@@ -2,7 +2,7 @@ class Reservation:
 
     def __init__(self, reservation_number, customer_license, credit_card,
                  start_date, end_date, insurance, payment_method, body_type,
-                 current_employee, vehicleID="Not Picked Up Yet"):
+                 current_employee, vehicleID="Not Picked Up Yet", keys="In"):
         self.reservation_number = reservation_number
         self.customer_license = customer_license
         self.credit_card = credit_card
@@ -13,6 +13,7 @@ class Reservation:
         self.body_type = body_type
         self.employee = current_employee
         self.vehicleID = vehicleID
+        self.keys = keys
 
     def __str__(self):
         return ('Reservation Number: {}\n'
@@ -24,16 +25,18 @@ class Reservation:
                 'Payment Method: {}\n'
                 'Vehicle Body Type: {}\n'
                 'Vehicle ID Number: {}\n'
-                'Employee: {}\n'.format(self.reservation_number,
-                                        self.customer_license,
-                                        self.hide_credit_card(),
-                                        self.start_date,
-                                        self.end_date,
-                                        self.insurance_bool_as_word(),
-                                        self.payment_method,
-                                        self.body_type,
-                                        self.vehicleID,
-                                        self.employee))
+                'Employee: {}\n'
+                'Keys In or Out: {}\n'.format(self.reservation_number,
+                                              self.customer_license,
+                                              self.hide_credit_card(),
+                                              self.start_date,
+                                              self.end_date,
+                                              self.insurance_bool_as_word(),
+                                              self.payment_method,
+                                              self.body_type,
+                                              self.vehicleID,
+                                              self.employee,
+                                              self.keys))
 
     def get_customer_license(self):
         return self.customer_license

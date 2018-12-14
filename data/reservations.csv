@@ -1,6 +1,5 @@
-0,customer_license_num,CC_number,start_date,end_date,insurance(Y/N),payment_method,body,vehicleID,employee
-1,11,111,2018/12/12,2018/12/20,True,cash,SUV,jon,employee
-2,22,222,2018/12/12,2018/12/20,False,credit,Sedan,jon,employee
-4,44,444,2018/12/12,2018/12/20,True,cash,hatchback,jon,employee
-5,55,555,2018/12/15,2018/12/18,True,credit,hatchback,jon,employee
-7,12345,123456789abcdef,2018/12/12,2018/12/20,True,cash,hatchback,NoneFound,employee
+0,customer_license_num,CC_number,start_date,end_date,insurance(Y/N),payment_method,body,vehicleID,employee,keys
+1,hellomom,111,2018/12/12,2018/12/20,True,cash,SUV,jon,employee,yes
+2,22,222,2018/12/12,2018/12/20,False,credit,Sedan,jon,employee,no
+4,44,444,2018/12/12,2018/12/20,True,cash,hatchback,jon,employee,Out
+8,12345,123456789abcdef,2018/12/12,2018/12/20,True,cash,hatchback,NoneFound,employee,no

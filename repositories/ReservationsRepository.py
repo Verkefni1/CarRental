@@ -55,27 +55,48 @@ class ReservationRepository:
                     if res_num == res[0]:  # if the res_num matches the reservations number the it does one of these actions
                         if edit_action == "1":  # each function changes a different part of the reservation depending on the user choice
                             res = [res[0], change, res[2], res[3],
-                                   res[4], res[5], res[6], res[7]]
+                                   res[4], res[5], res[6], res[7],
+                                   res[8], res[9], res[10]]
                             writer.writerow(res)
                         elif edit_action == "2":
                             res = [res[0], res[1], change, res[3],
-                                   res[4], res[5], res[6], res[7]]
+                                   res[4], res[5], res[6], res[7],
+                                   res[8], res[9], res[10]]
                             writer.writerow(res)
                         elif edit_action == "3":
                             res = [res[0], res[1], res[2], change,
-                                   res[4], res[5], res[6], res[7]]
+                                   res[4], res[5], res[6], res[7],
+                                   res[8], res[9], res[10]]
                             writer.writerow(res)
                         elif edit_action == "4":
                             res = [res[0], res[1], res[2], res[3],
-                                   change, res[5], res[6], res[7]]
+                                   change, res[5], res[6], res[7],
+                                   res[8], res[9], res[10]]
                             writer.writerow(res)
                         elif edit_action == "5":
                             res = [res[0], res[1], res[2], res[3],
-                                   res[4], change, res[6], res[7]]
+                                   res[4], change, res[6], res[7],
+                                   res[8], res[9], res[10]]
                             writer.writerow(res)
                         elif edit_action == "6":
                             res = [res[0], res[1], res[2], res[3],
-                                   res[4], res[5], change, res[7]]
+                                   res[4], res[5], change, res[7],
+                                   res[8], res[9], res[10]]
+                            writer.writerow(res)
+                        elif edit_action == "7":
+                            res = [res[0], res[1], res[2], res[3],
+                                   res[4], res[5], res[6], change,
+                                   res[8], res[9], res[10]]
+                            writer.writerow(res)
+                        elif edit_action == "8":
+                            res = [res[0], res[1], res[2], res[3],
+                                   res[4], res[5], res[6], res[7],
+                                   change, res[9], res[10]]
+                            writer.writerow(res)
+                        elif edit_action == "9":
+                            res = [res[0], res[1], res[2], res[3],
+                                   res[4], res[5], res[6], res[7],
+                                   res[8], res[9], change]
                             writer.writerow(res)
                     elif res == []:
                         pass

@@ -37,7 +37,14 @@ class MainMenu:
         action = ""
         options = ["1", "2", "3", "4", "5", "6"]
         self.header_1("55 Car Rental - Main Menu")
-        print("Welcome {}\n".format(self.__current_employee.get_username()))
+
+        self.header_1("Welcome {}".format(
+                       self.__current_employee.get_username()))
+        print("**********************")
+        self.header_2("Todays's Rates: ")
+        self.display_rates()
+        print("**********************\n")
+        
         while action not in options:
             print("1. Vehicle Menu\n"
                   "2. Customer Records\n"
@@ -120,9 +127,9 @@ class MainMenu:
                 print("Invalid input")
 
     def customer_menu(self):
-        print("=== CUSTOMERS ===\n")
+        self.header_1("CUSTOMERS")
         action = ""
-        options = ["1", "2", "3"]
+        options = ["1", "2", "3","4"]
         while action not in options:
             print("1. Register a customer\n"
                   "2. Look Up Customer\n"
@@ -238,7 +245,7 @@ class MainMenu:
                 # Edit res
                 self.header_2("Edit Reservation")
                 edit_action = ""
-                edit_options = ["1", "2", "3", "4", "5", "6", "7"]
+                edit_options = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
                 res_num = input("Enter Reservation Number: ")
                 search_results = (self.__res_services.search_res(res_num))
                 print(search_results)
@@ -253,37 +260,50 @@ class MainMenu:
                       "5. Insurance\n"
                       "6. Body\n"
                       "7. Transmission\n"
-                      "8.Finish")
+                      "8. Vehicle ID\n"
+                      "9. Return or Release Keys\n"
+                      "10. Finish")
                 while edit_action not in edit_options:
                     edit_action = input("Enter: ")
                     if edit_action == "1":
-                        change = input("Enter new info: ")
+                        change = input("Enter New License Number: ")
                         self.__res_services.edit_res(res_num, edit_action,
                                                      change)
                     elif edit_action == "2":
-                        change = input("Enter new info: ")
+                        change = input("Enter New CC Number: ")
                         self.__res_services.edit_res(res_num, edit_action,
                                                      change)
                     elif edit_action == "3":
-                        change = input("Enter new info: ")
+                        change = input("New Start Date: ")
                         self.__res_services.edit_res(res_num, edit_action,
                                                      change)
                     elif edit_action == "4":
-                        change = input("Enter new info: ")
+                        change = input("New End Date: ")
                         self.__res_services.edit_res(res_num, edit_action,
                                                      change)
                     elif edit_action == "5":
-                        change = input("Enter new info: ")
+                        change = input("Insurance: ")
                         self.__res_services.edit_res(res_num, edit_action,
                                                      change)
                     elif edit_action == "6":
-                        change = input("Enter new info: ")
+                        change = input("Enter New Payment Method: ")
                         self.__res_services.edit_res(res_num, edit_action,
                                                      change)
                     elif edit_action == "7":
+                        change = input("Enter New Body Type: ")
                         self.__res_services.edit_res(res_num, edit_action,
                                                      change)
                     elif edit_action == "8":
+                        change = input("Enter New Vehicle ID: ")
+                        self.__res_services.edit_res(res_num, edit_action,
+                                                     change)
+                    elif edit_action == "9":
+                        change = input("Keys In / Keys Out: ")
+                        self.__res_services.edit_res(res_num, edit_action,
+                                                     change)
+                        reservation = (self.__res_services.search_res(res_num))
+                        print(reservation)
+                    elif edit_action == "10":
                         self.reservations_menu()
 
             elif action == "4":
@@ -441,3 +461,8 @@ class MainMenu:
               "{} {}s\n"
               "{} {}s\n".format(the_list[0], the_list[1], the_list[2],
                                 the_list[3], the_list[4], the_list[5]))
+
+    def display_rates(self):
+        rate_list = self.__res_services.get_rates_list()
+        for rate in rate_list[0:-1]:
+            print("{}: ${:.2f}".format(rate[0].capitalize(), float(rate[1])))

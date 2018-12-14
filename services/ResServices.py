@@ -8,8 +8,8 @@ from datetime import datetime
 
 class ResServices():
     def __init__(self):
-        #self.__car_rental_service = ReservationRepository()#remove the repos that we wont need
-        #self.__customer_repo = CustomerRepository()
+        #  self.__car_rental_service = ReservationRepository()#remove the repos that we wont need
+        #  self.__customer_repo = CustomerRepository()
         self.__vehicle_repo = VehicleRepository()
         self.__reservation_repo = ReservationRepository()
 
@@ -28,14 +28,15 @@ class ResServices():
                                             reservation_list[6],
                                             reservation_list[7],
                                             reservation_list[8],
-                                            reservation_list[9])
+                                            reservation_list[9],
+                                            reservation_list[10])
             return reservation_class
         except TypeError:
             return "Reservation Not Found"
 
     def make_res(self, new_res):
         return self.__reservation_repo.make_res(new_res)
-    
+
     def cancel_res(self, res_number):
         self.__reservation_repo.cancel_reservation(res_number)
 
@@ -114,7 +115,7 @@ class ResServices():
         reserved_inventory = 0  # Number of cars reserved
 
         for res in res_list:
-            if body_type == res[7]:  # res[7] corresponds to vehicle body type
+            if body_type.lower() == res[7].lower():  # res[7] corresponds to vehicle body type
                 res_start_date = datetime.strptime(res[4], '%Y/%m/%d').date() # changes the dates from the reservations into datetime info
                 res_end_date = datetime.strptime(res[3], '%Y/%m/%d').date()
                 # if the selected start date is before a file reservation end date
@@ -140,21 +141,26 @@ class ResServices():
 
     def display_available_vehicles(self):
         """
-        Returns list of available vehicles
+        Returns list of number of
+        available vehicles
         for current day
         """
 
         current_day = self.current_day_str()
 
-        rate_list = self.__reservation_repo.get_rates()
-        available_car_list = []
+        rate_list = self.__reservation_repo.get_rates() # Used to get body names
+        # Suv, hatchback, sedan
+        
+        count = 0
+        available = []
 
-        for rate in rate_list[0:-1]:
-            available_car_list.append(self.check_availability(
+        for rate in rate_list[0:-1]: #  last value is insurance, and not counted
+            count = self.check_availability(
                                       rate[0], current_day,
-                                      current_day))
-            available_car_list.append(rate[0])
-        return available_car_list
+                                      current_day)
+            available.append(count)
+            available.append(rate[0])
+        return available
 
     def display_reserved_vehicles(self):
         """
@@ -190,3 +196,6 @@ class ResServices():
             if int(res[0]) > max_number:
                 max_number = int(res[0])
         return max_number + 1
+
+    def get_rates_list(self):
+        return self.__reservation_repo.get_rates()
