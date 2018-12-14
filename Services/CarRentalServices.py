@@ -3,6 +3,7 @@ from models.customer import Customer
 from models.Vehicle import Vehicle
 from models.reservation import Reservation
 
+
 from repositories.customerRepository import CustomerRepository
 from repositories.ReservationsRepository import ReservationRepository
 from repositories.vehicleRepository import VehicleRepository
@@ -58,8 +59,20 @@ class CarRentalServices():
     def add_customer(self, employee, customer):
         return self.__customer_repo.add_customer(customer)
 
-    def search_customer(self,last_name = "", first_name = ""):
-        pass    
+    def search_customer_by_name(self,last_name = "", first_name = ""):
+        return self.__customer_repo.search_customer_by_name(last_name, first_name)  
+    
+    def search_customer_by_ssn(self, ssn):
+        return self.__customer_repo.search_customer_by_kennitala(ssn)
+
+    def remove_customer(self, ssn):
+        return self.__customer_repo.remove_customer(ssn)
+
+    def update_customer(self, ssn, customer):
+        return self.__customer_repo.update_customer(ssn, customer)
+    
+    def get_all_customers(self):
+        return self.__customer_repo.get_all_customers()  
     
     """ RESERVATIONS FUNCTIONS """
     def new_reservation(self,customer):
@@ -79,7 +92,7 @@ class CarRentalServices():
         # body_type rate is int, insurance rate is a percentage
         total_costs = ""
         if insurance == True:
-            total_costs = self.get_rate(body_type) * self.get_rate("insurance") * res_length
+            total_costs = (self.get_rate(body_type) * res_length) * self.get_rate("insurance")
         elif insurance == False:
             total_costs = self.get_rate(body_type) * res_length
         return total_costs
@@ -94,3 +107,13 @@ class CarRentalServices():
         for rate in rate_list:
             if rate[0] == rate_type:
                 return float(rate[1])
+
+    def is_valid_res(self,body,insurance,length):
+        total_costs = self.calculate_costs(body,insurance,length)
+        if total_costs < 1:
+            # Print functions should be in UI
+            print("Reservation Length Minimum 1 Day")
+            return False
+        else:
+            print(total_costs)
+            return True

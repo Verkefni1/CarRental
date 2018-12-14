@@ -30,25 +30,26 @@ class EmployeeRepository(object):
         
         with open("./data/employees.csv", 'r') as employee_file:
             reader = csv.reader(employee_file)
-            with open("./data/employeesTmp.csv", 'w') as employee_file_tmp:
+            with open("./data/employeesTmp.csv", 'w',newline='') as employee_file_tmp:
                 writer = csv.writer(employee_file_tmp)
                 for row in reader:
                     if row[0] != employee:
                         writer.writerow(row)
+                    elif row == []:
+                        pass
+                    else:
+                        writer.writerow(row)
+        os.remove('./data/employees.csv')
         os.rename('./data/employeesTmp.csv', './data/employees.csv')
-    
 
     def get_employees(self):
-        """ returns a list with all current employees, except for passwords
+        """ returns a list with all current employee usernames
         """
         employee_list = []
         with open("./data/employees.csv", "r") as employee_file:
-            for line in employee_file.readlines():
-                username, password, manager = line.split(",")
-                #new_employee = Employee(username, password)
-                employee_list.append(username)
-                    # self.__employees.append(manager)    
-        
+            reader = csv.reader(employee_file)
+            for line in reader:
+                employee_list.append(line[0]) 
         return employee_list
     
     def get_employee_class(self,query_username,query_password):
@@ -77,8 +78,6 @@ class EmployeeRepository(object):
                     if line[0] == employee:
                         empl = [line[0],line[1],True]
                         writer.writerow(empl)
-                    elif line == []:
-                        pass
                     else:
                         writer.writerow(line)
         

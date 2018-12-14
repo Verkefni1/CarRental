@@ -12,6 +12,7 @@ class EmployeeServices(object):
         return self.__employee_repo.get_employee_class(username,password)
     
     def is_employee(self,username):
+        self.__employee_repo.get_employees()
         if username in self.__employee_repo.get_employees():
             return True
         else:

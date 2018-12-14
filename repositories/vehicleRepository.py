@@ -5,9 +5,14 @@ import os
 class VehicleRepository(object):
 
     def __init__(self):
-        self.__vehicle = []
+        self.__vehicle_list = []
 
-    def add_vehicle(self, employee, manager, vehicle):
+    def add_vehicle(self, vehicle):
+        """
+        Takes in a vehicle class and
+        writes it into the appropriate
+        CSV file
+        """
         with open("Vehicle.csv", "a+") as Vehicles_file:
             IDnumber = vehicle.get_IDnumber()
             body = vehicle.get_body()
@@ -19,25 +24,30 @@ class VehicleRepository(object):
             Vehicles_file.write("{}, {}, {}, {}, {}, {}, {}\n").format(IDnumber, body, make, model, year, color, transmission)
 
     def get_all_vehicles(self):
-        if self.__vehicle == []:
-            with open("Vehicle.csv", "r") as Vehicle_file:
-                for line in Vehicle_file.readlines():
-                    IDnumber, body, make, model, year, color, transmission = line.split(",")
-                    new_vehicle = Vehicle(IDnumber, body, make, model, year, color, transmission)
-                    self.__vehicle.append(new_vehicle)
-        return self.__vehicle
-    
-    def get_vehicle(self,vehicle_ID):
-        pass
+        """
+        Returns list of lists with all vehicle 
+        information in vehicle data file
+        """
+        if self.__vehicle_list == []:
+            with open("./data/vehicle.csv", "r") as Vehicle_file:
+                reader = csv.reader(Vehicle_file)
+                for line in reader:
+                    self.__vehicle_list.append(line)
 
-    def remove_vehicle(self, vehicle, IDnumber):
-        with open("Vehicle.csv", 'r') as Vehicle_file:
+        return self.__vehicle_list
+
+    def remove_vehicle(self, IDnumber):
+        """
+        Compares parameter vehicle IDnumber to those in vehicle data file
+        and removes vehicle with IDnumber match, of which there should
+        only be one.
+        """
+        with open("./data/vehicle.csv", 'r') as Vehicle_file:
             reader = csv.reader(Vehicle_file)
-            with open("Vehicletmp.csv", 'w+') as Vehicle_file_tmp:
+            with open("./data/Vehicletmp.csv", 'w+') as Vehicle_file_tmp:
                 writer = csv.writer(Vehicle_file_tmp)
                 for row in reader:
                     if row[0] != IDnumber:
                         writer.writerow(row)
-        os.rename('VehicleTmp.csv', 'Vehicle.csv')
-    
-
+        os.remove('./data/vehicle.csv')
+        os.rename('./data/VehicleTmp.csv', './data/vehicle.csv')

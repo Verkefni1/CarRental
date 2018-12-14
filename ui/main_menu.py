@@ -1,9 +1,11 @@
 from models.Employee import Employee
 from models.Vehicle import Vehicle
 from models.customer import Customer
+from models.reservation import Reservation
 
 from services.CarRentalServices import CarRentalServices
 from services.EmployeeServices import EmployeeServices
+from services.ResServices import ResServices
 
 import getpass
 
@@ -11,8 +13,9 @@ class MainMenu:
     def __init__(self):
         self.__car_rental_service = CarRentalServices()
         self.__employee_services = EmployeeServices()
+        self.__res_services = ResServices()
         self.__current_employee = ""
-        
+
     def ui_login(self):
         action = ""
         while action != "y":
@@ -22,21 +25,8 @@ class MainMenu:
             print("User password input is hidden. Press Enter to proceed.")
             password = getpass.getpass()
             if self.__employee_services.get_employee_class(username,password):
-                 # built-in Python module
-                # creates current_employee class using username and password
-                # login() method checks if it's a valid employee and returns 
-                # true if employee found in data file and given password matches. 
-                # Next method checks for employee
-                # admin status and sets it according to data file.
-
                 self.__current_employee = self.__employee_services.get_employee_class(username,password)
-            
-                #if self.__employee_services.login(current_employee,password):                    
-                #self.__current_employee = current_employee
                 print(self.__current_employee)
-                    # self.__current_employee.manager = current_employee.is_manager()
-                    # Must pass current_employee class to main menu to 
-                    # carry employee data to method and rest of program
                 self.ui_menu()
             else:
                 print("Invalid Username Or Password")
@@ -45,10 +35,15 @@ class MainMenu:
     def ui_menu(self):
         action = ""
         options = ["1", "2", "3", "4", "5", "6"]
-        print("=== 55 Car Rental - Main Menu ===")
+        self.header_1("55 Car Rental - Main Menu")
         print("Welcome {}\n".format(self.__current_employee.get_username()))
         while action not in options:
-            print("1. Vehicle Menu\n2. Customer Records\n3. Reservations \n4. Employee Options \n5. Log Out \n6. Exit\n")
+            print("1. Vehicle Menu\n"
+                  "2. Customer Records\n"
+                  "3. Reservations \n"
+                  "4. Employee Options\n"
+                  "5. Log Out\n"
+                  "6. Exit\n")
             action = input("What would you like to do?: ")
             print("\n")
             if action == "1":
@@ -60,7 +55,7 @@ class MainMenu:
             elif action == "4":
                 self.employee_menu()
             elif action == "5":
-                print("=== Logging Out ===\n")
+                print("Logging Out {}...".format(self.__current_employee.get_username()))
                 self.ui_login()
             elif action == "6":
                 quit()
@@ -70,13 +65,16 @@ class MainMenu:
     def vehicle_menu(self):
         action = ""
         options = ["1", "2", "3", "4", "5"]
-        print("=== VEHICLES ===\n")
+        self.header_1("Vehicles")
         while action not in options:
             
-            print("1. Display vehicles by availability\n2. Display Vehicle History\n3. Change Vehicle Status")
+            print("1. Display vehicles by availability\n"
+                  "2. Display Vehicle History\n"
+                  "3. Change Vehicle Status\n")
             if self.__current_employee.is_manager():
-                print("=== Management Options ===")
-                print("4. Add Vehicle to Fleet\n5. Retire Vehicle")
+                print("=== Management Options ===\n") ## NOT YET READY
+                print("4. Add Vehicle to Fleet\n"
+                      "5. Retire Vehicle\n")
             print("6. Main Menu")
             
             action = input("Enter: ").lower()
@@ -152,57 +150,135 @@ class MainMenu:
                 print("=== Customer Search ===")
                 last_name = input("Last Name: ")
                 first_name = input("First Name: ")
-                self.__car_rental_service.search_customer(last_name,first_name)
+                self.__car_rental_service.search_customer_by_name(last_name,first_name)
             
             elif action == "3":
                 print("Remove Customer")
+                self.__car_rental_service.remove_customer(ssn)
 
             elif action == "4":
                 self.ui_menu()
             else:
                 print("Invalid input")
 
-    def reservations_menu(self):# Not sure how we are going to change from menu to menu.
+    def reservations_menu(self):#THIS IS READY APPLY THIS TO YOUR UI MIGHT NEED TO CHANGE CURRENT_EMPLOYEE
         action = ""
-        options = ["1", "2", "3","4"] 
-        print("=== RESERVATIONS ===")
-        while action not in options: # Need to use the orders file to check if the input matches an order number
-            print("1. New Reservation\n2. Search Reservations\n3. Display All Reservations\n4. Main Menu")
-            action = input()
+        options = ["1", "2", "3", "4", "5"] 
+        self.header_1("Reservations")
+        while action not in options:
+            print("AVAILABLE OPTIONS:")
+            print("1. Make reservation\n2. Lookup reservation\n3. Edit reservation\n4. Cancel reservation\n5. Go back")
+            action = input("Enter: ")
+            print("")
+
             if action == "1":
-                # New reservation
-                # input customer details, create class with them, pass class into reservation services
-                print("New Reservation")
-                pass
-            
-            if action == "2":
-                #Search Reservations
-                print("Search Reservations")
-                #order_num = input("Input Reservation Number: ")
-                #if order_num in ## need to use the orders file here
-                # ALLOW TO DELETE RES HERE
-                """ self.__car_rental_service.get_reservation() """
+                customer_drivers_license = input("Drivers license number: ") ## MUST CHECK IF CUSTOMER EXISTS
+                body_type = input("Body type: ")
+                print("Enter dates in this format (yyyy/mm/dd)")
+                start_date = input("From: ")
+                end_date = input("To: ")
+
+                if self.__res_services.check_availability(body_type, start_date, end_date) > 0:
+                    body_amount = self.__res_services.check_availability(body_type, start_date, end_date)
+                    print("There are {} {}'s available for the dates selected".format(body_amount, body_type))
+                else:
+                    print("There are no {}'s available for the dates selected".format(body_type))
+                insurance = input("Insurance?(Y/N): ").lower()
+                ## must have res_length, int number of days
+                res_length = self.__res_services.get_res_length(start_date,end_date)
+                cost = self.__res_services.calculate_costs(body_type,insurance,res_length)
+                
+                credit_card = input("Enter Credit Card number: ")
+                payment_method = input("Payment method (Cash/Credit): ").lower()
+                if payment_method == "cash":
+                    payment_method == "cash"
+                elif payment_method == "credit":
+                    payment_method == "credit"#Could remove these if and elifs and just make a single if payment_method != "cash" or "credit"
+                else:
+                    print("Invalid input")
+                    self.reservations_menu()
+                res_number = 2
+                # INSURANCE CANNOT BE Y, MUST BE STORED AS TRUE OR FALSE
+                new_reservation = Reservation(res_number, customer_drivers_license, credit_card, start_date, end_date, insurance, payment_method, body_type, self.__current_employee.get_username())
+                self.__res_services.make_res(new_reservation)
+                print("")
+                self.reservations_menu()
+
+            elif action == "2":
+                # Search Reservations
+                res_num = input("Enter reservation number: ")
+                search_results = (self.__res_services.search_res(res_num))
+                print(search_results)
+                self.reservations_menu()
+
             elif action == "3":
-                ## Show all reservations
-                print("Showing All Reservations")
-                self.__car_rental_service.get_all_reservations(self.__current_employee)
+                #Edit res
+                edit_action = ""
+                edit_options = ["1", "2", "3", "4", "5", "6", "7"]
+                res_num = input("Enter Reservation Number: ")
+                
+                print("\nWhat would you like to change?\n")
+                
+                print("1. License number\n"
+                "2. Credit Card\n"
+                "3. From Date\n"
+                "4. To Date\n"
+                "5. Insurance\n"
+                "6. Body\n"
+                "7. Finish") # Don't forget TRANSMISSION
+                while edit_action not in edit_options:
+                    edit_action = input("Enter: ")
+                    if edit_action == "1":
+                        change = input("Enter new info: ")
+                        self.__res_services.edit_res(res_num, edit_action, change)
+                    elif edit_action == "2":
+                        change = input("Enter new info: ")
+                        self.__res_services.edit_res(res_num, edit_action, change)
+                    elif edit_action == "3":
+                        change = input("Enter new info: ")
+                        self.__res_services.edit_res(res_num, edit_action, change)
+                    elif edit_action == "4":
+                        change = input("Enter new info: ")
+                        self.__res_services.edit_res(res_num, edit_action, change)
+                    elif edit_action == "5":
+                        change = input("Enter new info: ")
+                        self.__res_services.edit_res(res_num, edit_action, change)
+                    elif edit_action == "6":
+                        change = input("Enter new info: ")
+                        self.__res_services.edit_res(res_num, edit_action, change)
+                    elif edit_action == "7":
+                        self.reservations_menu()
+                    self.reservations_menu()
 
             elif action == "4":
-                # Return to Main Menu
+                #cancel reservation
+                res_num = input("Enter reservation number: ")
+                self.__res_services.cancel_res(res_num) ## DOES NOT EXIST
+                self.reservations_menu()
+
+            elif action == "5":
+                #Go back to main menu
                 self.ui_menu()
+
             else:
-                print("INPUT INVALID")
-                
+                print("INPUT INVALID\n")
+                self.reservations_menu()
+
     def employee_menu(self):
-        print("=== EMPLOYEE OPTIONS ===")
-        print("1. Change Password\n7. Main Menu")
-        print(self.__current_employee.is_manager())
+        self.header_1("employee options")
+        print("1. Change Password\n"
+              "7. Main Menu\n")
+        
         if self.__current_employee.is_manager():
-            print("=== Management Only ===")
-            print("2. Print Current Employees\n3. Grant Admin Rights\n4. View Employee Activity\n5. Add Employee\n6. Remove Employee")
+            self.header_1("Management Only")
+            print("2. Print Current Employees\n"
+                  "3. Grant Admin Rights\n"
+                  "4. View Employee Activity\n"
+                  "5. Add Employee\n"
+                  "6. Remove Employee")
         action = input()
         if action == "1":
-            print("=== Change Password ===")
+            self.header_1("Change Password")
             print("Please Verify Current User")
             password = getpass.getpass()
             if self.__employee_services.login(self.__current_employee,password):
@@ -270,7 +346,6 @@ class MainMenu:
             
         else:
             print("Invalid input")
-        
 
     def verify_pass(self):
         print("Please Re-Enter Password")
@@ -287,11 +362,12 @@ class MainMenu:
         for item in passed_list:
             print(item)
 
-    def calculate_costs(self,body,insurance,length):
-        total_costs = self.__car_rental_service.calculate_costs(body,insurance,length)
-        return total_costs
+    def header_1(self,header_text):
+        """
+        Highest emphasis headers
+        === HEADER 1 ===
 
-### MUST RUN ON NEW_FILE.PY OR ELSE IT WONT RUN
-
-
-
+        """
+        header_text = header_text.upper()
+        print("\n=== {} ===".format(header_text))
+    

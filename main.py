@@ -6,4 +6,3 @@ def main():
     ui.ui_login()
 
 main()
-

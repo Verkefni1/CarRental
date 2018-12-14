@@ -1,45 +1,65 @@
-#This is the reservation model
-
 class Reservation:
 
-    def __init__(self, customer, reservation_number, payment_information, start_date, end_date, contract_length, insurance, vehicle_id, employee):
-        self.customer = customer
+    def __init__(self, reservation_number, customer_license, credit_card, from_date, to_date, insurance, payment_method, body_type, current_employee):
         self.reservation_number = reservation_number
-        self.payment_information = payment_information
-        self.start_date = start_date
-        self.end_date = end_date
-        self.contract_length = contract_length
+        self.customer_license = customer_license
+        self.credit_card = credit_card
+        self.from_date = from_date
+        self.to_date = to_date
         self.insurance = insurance
-        self.vehicle_id = vehicle_id
-        self.employee = employee
+        self.payment_method = payment_method
+        self.body_type = body_type
+        self.employee = current_employee
+
 
     def __str__(self):
-        return "Customer: {}\n Reservation number: {}\n Payment information: {}\n Start date: {}\n End date: {}\n Contract length: {}\n Insurance: {}\n Vehicle ID: {}\n Employee: {}\n".format(self.customer, self.reservation_number, self.payment_information, self.start_date, self.end_date, self.contract_length, self.insurance, self.vehicle_id, self.employee)
+        return ('Reservation Number: {}\n'
+        'Customer License Number: {}\n'
+        'Credit Card: ************{}\n'
+        'Start Date: {}\n'
+        'End Date: {}\n'
+        'Insurance: {}\n'
+        'Payment Method: {}\n'
+        'Vehicle Body Type: {}\n'
+        'Employee: {}\n'.format(self.reservation_number,self.customer_license,
+        self.hide_credit_card(),self.from_date, self.to_date, self.insurance_bool_as_word(),
+        self.payment_method, self.body_type, self.employee))
 
-    def get_customer(self):
-        return self.customer
+    def get_customer_license(self):
+        return self.customer_license
     
     def get_reservation_number(self):
         return self.reservation_number
 
-    def get_payment_information(self):
-        return self.payment_information
+    def get_CC(self):
+        return self.credit_card
 
-    def get_start_date(self):
-        return self.start_date
-    
-    def get_end_date(self):
-        return self.end_date
+    def get_from_date(self):
+        return self.from_date
 
-    def get_contract_length(self):
-        return self.contract_length
+    def get_to_date(self):
+        return self.to_date
 
-    def get_further_insurence(self):
+    def get_insurance(self):
         return self.insurance
 
-    def get_vehicle_id(self):
-        return self.vehicle_id
+    def get_payment_method(self):
+        return self.payment_method
 
-    def get_employee_id(self):
+    def get_body_type(self):
+        return self.body_type
+
+    def get_employee(self):
         return self.employee
     
+    def hide_credit_card(self):
+        last_four = str(self.credit_card)[-5:-1]
+        return last_four
+    
+    def insurance_bool_as_word(self):
+        ins_str = "False"
+        if self.insurance == "True":
+            ins_str = "Yes"
+            return ins_str
+        else:
+            return ins_str
