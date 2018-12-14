@@ -21,7 +21,7 @@ class CustomerRepository:
                 first_name, last_name, address,
                 drivers_license, ssn, current_rental_number))
 
-    # returns customer details if found, returns NONE if the customer is not 
+    # returns customer details if found, returns NONE if the customer is not
     # in the system
     def search_customer_by_name(self, last_name="", first_name=""):
         with open("./Data/Customer.csv", "r") as customer_file:
@@ -35,7 +35,7 @@ class CustomerRepository:
                     return foundCust
         return None
 
-    # returns customer details if found, returns NONE if the customer is not 
+    # returns customer details if found, returns NONE if the customer is not
     # in the system
     def search_customer_by_ssn(self, ssn):
         with open("./Data/Customer.csv", "r") as customer_file:
@@ -49,7 +49,7 @@ class CustomerRepository:
                     return foundCust
         return None
 
-    # removes customer if they exist in the customer file. 
+    # removes customer if they exist in the customer file
     def remove_customer(self, ssn):
         with open("./Data/Customer.csv", 'r') as customer_file:
             reader = csv.reader(customer_file)
@@ -60,7 +60,7 @@ class CustomerRepository:
                         writer.writerow(row)
         os.rename('./Data/customerTmp.csv', './Data/Customer.csv')
 
-    # updates customer if exists in the customer file. 
+    # updates customer if exists in the customer file
     # Search for customer by entering the customers kennitala
     def update_customer(self, ssn, customer):
         with open("./Data/Customer.csv", 'r') as customer_file:
