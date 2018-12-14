@@ -1,7 +1,7 @@
 from models.Employee import Employee
 from models.Vehicle import Vehicle
-from models.customer import Customer
-from models.reservation import Reservation
+from models.Customer import Customer
+from models.Reservation import Reservation
 
 from services.CarRentalServices import CarRentalServices
 from services.EmployeeServices import EmployeeServices
@@ -29,8 +29,8 @@ class MainMenu:
                 print(self.__current_employee)
                 self.ui_menu()
             else:
-                print("Invalid Username Or Password")
-                print("\n")
+                print("Invalid Username Or Password\n")
+                #print("\n")added the newline to the previous print
 
     def ui_menu(self):
         action = ""
@@ -40,12 +40,12 @@ class MainMenu:
         while action not in options:
             print("1. Vehicle Menu\n"
                   "2. Customer Records\n"
-                  "3. Reservations \n"
+                  "3. Reservations\n"
                   "4. Employee Options\n"
                   "5. Log Out\n"
                   "6. Exit\n")
             action = input("What would you like to do?: ")
-            print("\n")
+            print("\n")#only do print("\n") if you want 2 empty lines print("") outputs 1 empty line
             if action == "1":
                 self.vehicle_menu()
             elif action == "2":
@@ -64,18 +64,16 @@ class MainMenu:
 
     def vehicle_menu(self):
         action = ""
-        options = ["1", "2", "3", "4", "5"]
+        options = ["1", "2", "3", "4"]
         self.header_1("Vehicles")
         while action not in options:
             
-            print("1. Display vehicles by availability\n"
-                  "2. Display Vehicle History\n"
-                  "3. Change Vehicle Status\n")
+            print("1. Display vehicles by availability\n")
             if self.__current_employee.is_manager():
                 print("=== Management Options ===\n") ## NOT YET READY
-                print("4. Add Vehicle to Fleet\n"
-                      "5. Retire Vehicle\n")
-            print("6. Main Menu")
+                print("2. Add Vehicle to Fleet\n"
+                      "3. Retire Vehicle\n")
+            print("4. Main Menu")
             
             action = input("Enter: ").lower()
 
@@ -84,20 +82,11 @@ class MainMenu:
                 print("=== Displaying Vehicles by Availability ===")
                 self.__car_rental_service.get_vehicles_by_availability(self.__current_employee)
             
+            #REMOVED DISPLAY VEHICLE HISTORY
+            
+            #REMOVED CHANGE VEHICLE STATUS
+            
             elif action == "2":
-                # Display Vehicle History
-                print("=== Display Vehicle History ===")
-                vehicle_ID = input("Enter Vehicle ID: ")
-                self.__car_rental_service.get_vehicle_history(self.__current_employee,vehicle_ID)
-            
-            elif action == "3":
-                # Change Vehicle Status (Clean, Dirty, Out Of Order)
-                print("=== Change Vehicle Status ===")
-                vehicle_ID = input("Enter Vehicle ID: ")
-                self.__car_rental_service.change_vehicle_status(self.__current_employee,vehicle_ID)
-
-            
-            elif action == "4":
                 # Add Vehicle to Fleet
                 if self.__current_employee.is_manager():
                     print("=== Add Vehicle To Fleet ===")
@@ -114,13 +103,13 @@ class MainMenu:
                 else:
                     pass
                 
-            elif action == "5":
+            elif action == "3":
                 # Retire Vehicle
                 print("=== Retire Vehicle ===")
                 vehicle_ID = input("Enter Vehicle ID: ")
                 self.__car_rental_service.remove_vehicle(vehicle_ID)
 
-            elif action == "6":
+            elif action == "4":
                 print("Go back")
                 self.ui_menu()
 
@@ -167,11 +156,7 @@ class MainMenu:
         self.header_1("Reservations")
         while action not in options:
             print("AVAILABLE OPTIONS:")
-            print("1. Make reservation\n"
-                  "2. Lookup reservation\n"
-                  "3. Edit reservation\n"
-                  "4. Cancel reservation\n"
-                  "5. Go back")
+            print("1. Make reservation\n2. Lookup reservation\n3. Edit reservation\n4. Cancel reservation\n5. Go back")
             action = input("Enter: ")
             print("")
 
@@ -182,28 +167,36 @@ class MainMenu:
                 start_date = input("From: ")
                 end_date = input("To: ")
 
-                if self.__res_services.check_availability(body_type, start_date, end_date) > 0:
-                    body_amount = self.__res_services.check_availability(body_type, start_date, end_date)
+                body_amount = self.__res_services.check_availability(body_type, start_date, end_date)
+                if body_amount > 0:
                     print("There are {} {}'s available for the dates selected".format(body_amount, body_type))
                 else:
                     print("There are no {}'s available for the dates selected".format(body_type))
+
                 insurance = input("Insurance?(Y/N): ").lower()
-                ## must have res_length, int number of days
+                if insurance == "y":
+                    insurance == True
+                elif insurance == "n":
+                    insurance == False
+                else:
+                    print("Invalid input")
+                    self.reservations_menu()
+
                 res_length = self.__res_services.get_res_length(start_date,end_date)
                 cost = self.__res_services.calculate_costs(body_type,insurance,res_length)
                 
                 credit_card = input("Enter Credit Card number: ")
                 payment_method = input("Payment method (Cash/Credit): ").lower()
-                if payment_method == "cash":
-                    payment_method == "cash"
-                elif payment_method == "credit":
-                    payment_method == "credit"#Could remove these if and elifs and just make a single if payment_method != "cash" or "credit"
-                else:
+                if payment_method != "cash" and payment_method != "credit":
                     print("Invalid input")
                     self.reservations_menu()
-                res_number = 2
+
+                reservation_number = self.__res_services.make_reservation_number()##makes the reservation number
                 # INSURANCE CANNOT BE Y, MUST BE STORED AS TRUE OR FALSE
-                new_reservation = Reservation(res_number, customer_drivers_license, credit_card, start_date, end_date, insurance, payment_method, body_type, self.__current_employee.get_username())
+
+                #vehicle_id = function that generates the id
+
+                new_reservation = Reservation(reservation_number, customer_drivers_license, credit_card, start_date, end_date, insurance, payment_method, body_type, self.__current_employee.get_username())
                 self.__res_services.make_res(new_reservation)
                 print("")
                 self.reservations_menu()
@@ -229,7 +222,8 @@ class MainMenu:
                 "4. To Date\n"
                 "5. Insurance\n"
                 "6. Body\n"
-                "7. Finish") # Don't forget TRANSMISSION
+                "7. Transmission\n"
+                "8.Finish")
                 while edit_action not in edit_options:
                     edit_action = input("Enter: ")
                     if edit_action == "1":
@@ -251,8 +245,9 @@ class MainMenu:
                         change = input("Enter new info: ")
                         self.__res_services.edit_res(res_num, edit_action, change)
                     elif edit_action == "7":
+                        self.__res_services.edit_res(res_num, edit_action, change)
+                    elif edit_action == "8":
                         self.reservations_menu()
-                    self.reservations_menu()
 
             elif action == "4":
                 #cancel reservation
