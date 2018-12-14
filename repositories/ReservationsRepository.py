@@ -73,20 +73,15 @@ class ReservationRepository:
         os.remove('./data/reservations.csv')
         os.rename('./data/reservationsTmp.csv', './data/reservations.csv')
 
-    def get_reservations(self): # FINAL
-        """ This function opens up the reservations file to count how many cars are reserved of the requested body_type
-        it then takes the dates for those cars to see if any of them finish their reservation
-        time before the time the current customer wants to rent a car.
-        Body_amount tells us how many cars of this body are in the reservations file
-        Remaining tells us how many cars of this type are available because they aren't in the reservations file
-        Available_count determines how many cars are reserved that will become available by the time we want to reserve a
-        car of that body at a certain time. it then adds the remaining cars to get a total count of available cars.
+    def get_reservations(self):
+        """ 
+        Returns list of lists of all reservations
         """
         res_list = []
         with open("./data/reservations.csv", "r") as reservations_file:
             reader = csv.reader(reservations_file)
-            for car in reader:
-                res_list.append(car)
+            for row in reader:
+                res_list.append(row)
         return res_list
 
     def cancel_reservation(self,resID):
