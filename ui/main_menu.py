@@ -120,7 +120,7 @@ class MainMenu:
         while action not in options:
             print("1. Register a customer\n"
                   "2. Look Up Customer\n"
-                  "3. Remove Custmer\n"
+                  "3. Remove Customer\n"
                   "4. Main Menu\n")
             action = input("Enter: ")
 
@@ -132,17 +132,17 @@ class MainMenu:
                 drivers_license = input("Driver's License Number: ")
                 ssn = input("SSN: ")
                 address = input("Address: ")
-                customer = Customer(last_name, first_name, 
+                customer = Customer(last_name, first_name,
                                     drivers_license, ssn, address)
                 self.__car_rental_service.add_customer(
-                     self.__current_employee, customer)
+                    self.__current_employee, customer)
 
             elif action == "2":
                 print("=== Customer Search ===")
                 last_name = input("Last Name: ")
                 first_name = input("First Name: ")
-                self.__car_rental_service.search_customer_by_name(last_name,
-                                                                  first_name)
+                self.__car_rental_service.search_customer_by_name(
+                    last_name, first_name)
 
             elif action == "3":
                 print("Remove Customer")
