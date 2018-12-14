@@ -1,7 +1,7 @@
 from models.Employee import Employee
-from models.customer import Customer
+from models.Customer import Customer
 from models.Vehicle import Vehicle
-from models.reservation import Reservation
+from models.Reservation import Reservation
 
 
 from repositories.customerRepository import CustomerRepository

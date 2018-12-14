@@ -1,6 +1,6 @@
 import csv
 import os
-from models.reservation import Reservation
+from models.Reservation import Reservation
 
 
 class ReservationRepository:
