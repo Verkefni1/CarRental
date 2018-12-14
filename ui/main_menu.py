@@ -70,7 +70,8 @@ class MainMenu:
         self.header_1("Vehicles")
         while action not in options:
 
-            print("1. Display vehicles by availability\n")
+            print("1. Display Available Vehicles\n"
+                  "2. Display Currently Rented Vehicles")
             if self.__current_employee.is_manager():
                 print("=== Management Options ===\n")
                 print("2. Add Vehicle to Fleet\n"
@@ -80,12 +81,16 @@ class MainMenu:
             action = input("Enter: ").lower()
 
             if action == "1":
-                print("=== Displaying Vehicles by Availability ===")
+                print("Displaying Available Vehicles")
                 self.__car_rental_service.get_vehicles_by_availability(
                                                self.__current_employee)
             elif action == "2":
+                print("Displaying Rented Vehicles")
+                self.__car_rental_service.get_all_vehicles_by_availability(
+                                                self.__current_employee)
+            elif action == "2":
                 if self.__current_employee.is_manager():
-                    print("=== Add Vehicle To Fleet ===")
+                    print("Add Vehicle To Fleet")
                     IDnumber = input("Car ID: ")
                     body = input("Body: ")
                     make = input("Make: ")
@@ -194,11 +199,13 @@ class MainMenu:
 
                 res_length = self.__res_services.get_res_length(
                                            start_date, end_date)
+                ##  YOU ARE HERE
                 cost = self.__res_services.calculate_costs(
                           body_type, insurance, res_length)
                 # COST NEEDS TO BE PUT SOMEWHERE WHERE WE CAN PRINT IT OUT
                 credit_card = input("Enter Credit Card number: ")
-                payment_method = input("Payment method (Cash/Credit): ").lower()
+                payment_method = input("Payment method "
+                                       "(Cash/Credit): ").lower()
                 if payment_method != "cash" and payment_method != "credit":
                     print("Invalid input")
                     self.reservations_menu()
@@ -231,7 +238,10 @@ class MainMenu:
                 edit_action = ""
                 edit_options = ["1", "2", "3", "4", "5", "6", "7"]
                 res_num = input("Enter Reservation Number: ")
-
+                search_results = (self.__res_services.search_res(res_num))
+                print(search_results)
+                if search_results == "Reservation Not Found":
+                    self.reservations_menu()
                 print("\nWhat would you like to change?\n")
 
                 print("1. License number\n"
@@ -277,7 +287,21 @@ class MainMenu:
             elif action == "4":
                 # cancel reservation
                 res_num = input("Enter reservation number: ")
-                self.__res_services.cancel_res(res_num)  # DOES NOT EXIST
+                search_results = (self.__res_services.search_res(res_num))
+                print(search_results)
+
+                if search_results == "Reservation Not Found":
+                    self.reservations_menu()
+                confirm = (input("Warning! Are you sure you want "
+                                 "to cancel reservation number {}? "
+                                 "This cannot be undone. (Y/N)".format(
+                                  res_num)))
+                if confirm == "Y".lower():
+                    self.__res_services.cancel_res(res_num)
+                    print("Reservation Number: {}"
+                          "has been cancelled.".format(res_num))
+                else:
+                    print("Operation Cancelled")
                 self.reservations_menu()
 
             elif action == "5":
@@ -335,12 +359,15 @@ class MainMenu:
                         if self.__employee_services.is_employee(new_admin):
                             self.__employee_services.make_admin(
                                 self.__current_employee, new_admin)
+                            self.employee_menu()
                         else:
                             self.not_employee()
                     elif confirm == "N".lower():
                         print("Operation Cancelled")
+                        self.employee_menu()
                     else:
                         print("Invalid Input")
+                        self.employee_menu()
 
             elif action == "4":
                 if self.verify_pass():
