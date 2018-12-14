@@ -23,20 +23,6 @@ class CustomerRepository:
 
     # returns customer details if found, returns NONE if the customer is not
     # in the system
-    def search_customer_by_name(self, last_name="", first_name=""):
-        with open("./Data/Customer.csv", "r") as customer_file:
-            for line in customer_file.readlines():
-                f_name, l_name, address, drivers_license, ssn,
-                current_rental_number = line.split(",")
-                if l_name == last_name and f_name == first_name:
-                    foundCust = Customer(
-                        l_name, f_name, address, drivers_license,
-                        ssn, current_rental_number)
-                    return foundCust
-        return None
-
-    # returns customer details if found, returns NONE if the customer is not
-    # in the system
     def search_customer_by_ssn(self, ssn):
         with open("./Data/Customer.csv", "r") as customer_file:
             for line in customer_file.readlines():
