@@ -125,8 +125,8 @@ class MainMenu:
             else:
                 print("Invalid input")
 
-    def customer_menu(self):# Not sure how we are going to change from menu to menu.
-        print("=== CUSTOMERS ===\n")        
+    def customer_menu(self):
+        print("=== CUSTOMERS ===\n")
         action = ""
         options = ["1", "2", "3", "4", "5"]
         while action not in options:
@@ -144,57 +144,65 @@ class MainMenu:
                 last_name = input("Last Name: ")
                 first_name = input("First Name: ")
                 drivers_license = input("Driver's License Number: ")
-                kennitala = input("Kennitala: ")
+                ssn = input("SSN: ")
                 address = input("Address: ")
-                customer = Customer(last_name, first_name, drivers_license, kennitala, address)
-                self.__car_rental_service.add_customer(self.__current_employee, customer)
+                customer = Customer(last_name, first_name,
+                                    drivers_license, ssn, address)
+                self.__car_rental_service.add_customer(
+                    self.__current_employee, customer)
 
             elif action == "2":
                 print("=== Customer Search by Name ===")
                 last_name = input("Last Name: ")
                 first_name = input("First Name: ")
-                self.__car_rental_service.search_customer_by_name(last_name, first_name)
-            
+                self.__car_rental_service.search_customer_by_name(
+                    last_name, first_name)
+
             elif action == "3":
                 print("=== Customer Search by SSN ===")
-                kennitala = input("SSN: ")
+                ssn = input("SSN: ")
                 self.__car_rental_service.search_customer_by_ssn(ssn)
 
-            elif action == "4":
-                #Edit customer
+            elif action == "4":  # Edit customer
                 edit_action = ""
                 edit_options = ["1", "2", "3", "4", "5", "6", "7"]
                 ssn = input("Enter Customers SSN: ")
-                
+
                 print("\nWhat would you like to change?\n")
-                
+
                 print("1. First name\n"
                 "2. Last name\n"
                 "3. Address\n"
                 "4. Drivers license\n"
                 "5. SSN\n"
                 "6. Current rental order number\n"
-                "7. Finish") # Don't forget TRANSMISSION
+                "7. Finish")
                 while edit_action not in edit_options:
                     edit_action = input("Enter: ")
                     if edit_action == "1":
                         change = input("Enter new info: ")
-                        self.__car_rental_services.edit_customer(ssn, edit_action, change)
+                        self.__car_rental_service.edit_customer(
+                            ssn, edit_action, change)
                     elif edit_action == "2":
                         change = input("Enter new info: ")
-                        self.__car_rental_services.edit_customer(ssn, edit_action, change)                    
+                        self.__car_rental_service.edit_customer(
+                            ssn, edit_action, change)
                     elif edit_action == "3":
                         change = input("Enter new info: ")
-                        self.__car_rental_services.edit_customer(ssn, edit_action, change)
+                        self.__car_rental_service.edit_customer(
+                            ssn, edit_action, change)
                     elif edit_action == "4":
                         change = input("Enter new info: ")
-                        self.__car_rental_services.edit_customer(ssn, edit_action, change)
+                        self.__car_rental_service.edit_customer(
+                            ssn, edit_action, change)
                     elif edit_action == "5":
                         change = input("Enter new info: ")
-                        self.__car_rental_services.edit_customer(ssn, edit_action, change)
+                        self.__car_rental_service.edit_customer(
+                            ssn, edit_action, change)
                     elif edit_action == "6":
                         change = input("Enter new info: ")
-                        self.__car_rental_services.edit_customer(ssn, edit_action, change)
+                        self.__car_rental_service.edit_customer(
+                            ssn, edit_action, change)
                     elif edit_action == "7":
                         self.customer_menu()
                     self.customer_menu()

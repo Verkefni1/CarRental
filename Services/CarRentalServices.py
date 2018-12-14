@@ -45,7 +45,7 @@ class CarRentalServices():
         '''add vehicle to database?'''
         self.__vehicle_repo.add_vehicle(vehicle)
     
-    def remove_vehicle(self,vehicle):
+    def remove_vehicle(self, vehicle):
         """ Remove vehicle from DB"""
         self.__vehicle_repo.remove_vehicle(vehicle)
 
@@ -53,18 +53,19 @@ class CarRentalServices():
     def add_customer(self, employee, customer):
         return self.__customer_repo.add_customer(customer)
 
-    def search_customer_by_name(self,last_name = "", first_name = ""):
-        return self.__customer_repo.search_customer_by_name(last_name, first_name)  
-    
+    def search_customer_by_name(self, last_name="", first_name=""):
+        return self.__customer_repo.search_customer_by_name(
+            last_name, first_name)
+
     def search_customer_by_ssn(self, ssn):
         return self.__customer_repo.search_customer_by_kennitala(ssn)
 
     def remove_customer(self, ssn):
         return self.__customer_repo.remove_customer(ssn)
 
-    def update_customer(self, ssn, customer):
-        return self.__customer_repo.update_customer(ssn, customer)
-    
+    def edit_customer(self, ssn, customer):
+        return self.__customer_repo.edit_customer(ssn, customer)
+
     def get_all_customers(self):
         return self.__customer_repo.get_all_customers()
 
