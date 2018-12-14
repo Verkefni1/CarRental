@@ -128,14 +128,15 @@ class MainMenu:
     def customer_menu(self):
         print("=== CUSTOMERS ===\n")
         action = ""
-        options = ["1", "2", "3", "4", "5"]
+        options = ["1", "2", "3", "4", "5", "6", "7"]
         while action not in options:
             print("1. Register a customer\n"
                   "2. Look Up Customer by name\n"
                   "3. Look Up Customer by SSN\n"
                   "4. Edit Customer"
                   "5. Remove Custmer\n"
-                  "6. Main Menu\n")
+                  "6. Display All Customers\n"
+                  "7. Main Menu\n")
             action = input("Enter: ")
 
             if action == "1":
@@ -166,6 +167,7 @@ class MainMenu:
             elif action == "4":  # Edit customer
                 edit_action = ""
                 edit_options = ["1", "2", "3", "4", "5", "6", "7"]
+                
                 ssn = input("Enter Customers SSN: ")
 
                 print("\nWhat would you like to change?\n")
@@ -174,8 +176,7 @@ class MainMenu:
                       "2. Last name\n"
                       "3. Address\n"
                       "4. Drivers license\n"
-                      "5. SSN\n"
-                      "6. Current rental order number\n"
+                      "5. Current rental order number\n"
                       "7. Finish")
                 while edit_action not in edit_options:
                     edit_action = input("Enter: ")
@@ -200,10 +201,6 @@ class MainMenu:
                         self.__car_rental_service.edit_customer(
                             ssn, edit_action, change)
                     elif edit_action == "6":
-                        change = input("Enter new info: ")
-                        self.__car_rental_service.edit_customer(
-                            ssn, edit_action, change)
-                    elif edit_action == "7":
                         self.customer_menu()
                     self.customer_menu()
 
@@ -214,8 +211,12 @@ class MainMenu:
                     self.__car_rental_service.remove_customer(ssn)
                 else:
                     pass
-
+            
             elif action == "6":
+                print("=== Displaying All Customers ===")
+                self.__car_rental_service.get_all_customers():
+
+            elif action == "7":
                 self.ui_menu()
             else:
                 print("Invalid input")
