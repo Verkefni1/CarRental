@@ -9,7 +9,7 @@ class Vehicle(object):
         self.transmission = transmission
 
     def __str__(self):
-        return ("ID number: {}\n
+        return ("ID number: {}\n"
                 "Body: {}\n"
                 "Make: {}\n"
                 "Model: {}\n"
@@ -17,7 +17,7 @@ class Vehicle(object):
                 "Color: {}\n"
                 "Transmission: {}\n".format(
                     self.IDnumber, self.body, self.make, self.model,
-                    self.year, self.color, self.transmission)
+                    self.year, self.color, self.transmission))
 
     def get_IDnumber(self):
         return self.IDnumber
