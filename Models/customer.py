@@ -8,7 +8,7 @@ class Customer:
         self.drivers_license = drivers_license
         self.ssn = ssn
         self.current_rental_number = current_rental_number
-    
+
     def __str__(self):
         return "Customer details\n"
         "Full name: {}\n"
