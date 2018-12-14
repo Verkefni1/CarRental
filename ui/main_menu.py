@@ -128,7 +128,7 @@ class MainMenu:
                 print("Invalid input")
 
     def customer_menu(self):
-        print("=== CUSTOMERS ===\n")   
+        print("=== CUSTOMERS ===\n")
         action = ""
         options = ["1", "2", "3"]
         while action not in options:
