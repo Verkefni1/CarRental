@@ -63,8 +63,8 @@ class CarRentalServices():
     def remove_customer(self, ssn):
         return self.__customer_repo.remove_customer(ssn)
 
-    def edit_customer(self, ssn, customer):
-        return self.__customer_repo.edit_customer(ssn, customer)
+    def edit_customer(self, ssn, edit_action, change):
+        return self.__customer_repo.edit_customer(ssn, edit_action, change)
 
     def get_all_customers(self):
         return self.__customer_repo.get_all_customers()

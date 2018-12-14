@@ -7,6 +7,7 @@ class CustomerRepository:
 
     def __init__(self):
         self.__customer = []
+        
 
     # Adds customer into customer file
     def add_customer(self, customer):
@@ -79,11 +80,11 @@ class CustomerRepository:
                             cus = [cus[0], cus[1], change, cus[3],
                                    cus[4], cus[5]]
                         elif edit_action == "4":
-                            cus = [cus[0], cus[1], cus[2],  change],
-                                cus[4], cus[5]]
+                            cus = [cus[0], cus[1], cus[2], change,
+                                   cus[4], cus[5]]
                         elif edit_action == "5":
                             cus = [cus[0], cus[1], cus[2], cus[3],
-                                change, cus[5]]
+                                   change, cus[5]]
                         elif edit_action == "6":
                             cus = [cus[0], cus[1], cus[2], cus[3],
                                    cus[4], change]
@@ -94,7 +95,7 @@ class CustomerRepository:
         os.remove('"./data/customer.csv"')
         os.rename('./data/customerTmp.csv', './data/customer.csv')
 
-    # Prints out all customers in the customer file
+    #  Prints out all customers in the customer file
     def get_all_customers(self):
         with open("Customer.csv", 'r') as customer_file:
             for row in customer_file:

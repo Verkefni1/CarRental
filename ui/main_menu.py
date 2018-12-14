@@ -131,11 +131,11 @@ class MainMenu:
         options = ["1", "2", "3", "4", "5"]
         while action not in options:
             print("1. Register a customer\n"
-            "2. Look Up Customer by name\n"
-            "3. Look Up Customer by SSN\n"
-            "4. Edit Customer"
-            "5. Remove Custmer\n"
-            "6. Main Menu\n")
+                  "2. Look Up Customer by name\n"
+                  "3. Look Up Customer by SSN\n"
+                  "4. Edit Customer"
+                  "5. Remove Custmer\n"
+                  "6. Main Menu\n")
             action = input("Enter: ")
 
             if action == "1":
@@ -171,12 +171,12 @@ class MainMenu:
                 print("\nWhat would you like to change?\n")
 
                 print("1. First name\n"
-                "2. Last name\n"
-                "3. Address\n"
-                "4. Drivers license\n"
-                "5. SSN\n"
-                "6. Current rental order number\n"
-                "7. Finish")
+                      "2. Last name\n"
+                      "3. Address\n"
+                      "4. Drivers license\n"
+                      "5. SSN\n"
+                      "6. Current rental order number\n"
+                      "7. Finish")
                 while edit_action not in edit_options:
                     edit_action = input("Enter: ")
                     if edit_action == "1":
@@ -210,7 +210,7 @@ class MainMenu:
             elif action == "5":
                 if self.__current_employee.is_manager():
                     print("=== Remove Customer ===")
-                    kennitala = input("SSN: ")
+                    ssn = input("SSN: ")
                     self.__car_rental_service.remove_customer(ssn)
                 else:
                     pass
