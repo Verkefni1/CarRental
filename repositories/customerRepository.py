@@ -60,26 +60,39 @@ class CustomerRepository:
                         writer.writerow(row)
         os.rename('./Data/customerTmp.csv', './Data/Customer.csv')
 
-    # updates customer if exists in the customer file
+    # updates customer if exists in the customer file.
     # Search for customer by entering the customers kennitala
-    def update_customer(self, ssn, customer):
-        with open("./Data/Customer.csv", 'r') as customer_file:
+    def edit_customer(self, ssn, edit_action, change):
+        with open("./data/Customer.csv", 'r') as customer_file:
             reader = csv.reader(customer_file)
-            with open("./Data/customerTmp.csv", 'w+') as customer_file_tmp:
+            with open("./data/customerTmp.csv", 'w+') as customer_file_tmp:
                 writer = csv.writer(customer_file_tmp)
-                for row in reader:
-                    print(row)
-                    if row[4] == ssn:
-                        cust = [
-                            customer.get_first_name(),
-                            customer.get_last_name(),
-                            customer.get_address(),
-                            customer.get_drivers_license(),
-                            customer.get_ssn(), 0]
-                        writer.writerow(cust)
-                    else:
-                        writer.writerow(row)
-        os.rename('./Data/customerTmp.csv', './Data/Customer.csv')
+                for cus in reader:
+                    if ssn == cus[4]:
+                        if edit_action == "1":
+                            cus = [change, cus[1], cus[2], cus[3],
+                                   cus[4], cus[5]]
+                        elif edit_action == "2":
+                            cus = [cus[0], change, cus[2], cus[3],
+                                   cus[4], cus[5]]
+                        elif edit_action == "3":
+                            cus = [cus[0], cus[1], change, cus[3],
+                                   cus[4], cus[5]]
+                        elif edit_action == "4":
+                            cus = [cus[0], cus[1], cus[2], change,
+                                   cus[4], cus[5]]
+                        elif edit_action == "5":
+                            cus = [cus[0], cus[1], cus[2], cus[3],
+                                   change, cus[5]]
+                        elif edit_action == "6":
+                            cus = [cus[0], cus[1], cus[2], cus[3],
+                                   cus[4], change]
+                        elif cus == []:
+                            pass
+                        else:
+                            writer.writerow(cus)
+        os.remove('"./data/customer.csv"')
+        os.rename('./data/customerTmp.csv', './data/customer.csv')
 
     # Prints out all customers in the customer file
     def get_all_customers(self):
