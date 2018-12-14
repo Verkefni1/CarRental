@@ -150,7 +150,6 @@ class ResServices():
 
         rate_list = self.__reservation_repo.get_rates() # Used to get body names
         # Suv, hatchback, sedan
-        
         count = 0
         available = []
 

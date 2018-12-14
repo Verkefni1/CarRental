@@ -45,21 +45,17 @@ class CarRentalServices():
     def add_customer(self, employee, customer):
         return self.__customer_repo.add_customer(customer)
 
-    def search_customer_by_name(self, last_name="", first_name=""):
-        return self.__customer_repo.search_customer_by_name(
-                            last_name, first_name)
-
     def search_customer_by_ssn(self, ssn):
-        return self.__customer_repo.search_customer_by_kennitala(ssn)
+        return self.__customer_repo.search_customer_by_ssn(ssn)
 
     def remove_customer(self, ssn):
         return self.__customer_repo.remove_customer(ssn)
 
-    def update_customer(self, ssn, customer):
-        return self.__customer_repo.update_customer(ssn, customer)
-    
+    def edit_customer(self, ssn, edit_action, change):
+        return self.__customer_repo.edit_customer(ssn, edit_action, change)
+
     def get_all_customers(self):
-        return self.__customer_repo.get_all_customers()  
+        return self.__customer_repo.get_all_customers() 
 
     def is_valid_res(self, body, insurance, length):
         total_costs = self.calculate_costs(body, insurance, length)
