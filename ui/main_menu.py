@@ -161,8 +161,6 @@ class MainMenu:
                 customer_info = self.__car_rental_service.search_customer_by_ssn(ssn)
                 customer_class = self.__car_rental_service.make_customer_class(customer_info)
                 print(customer_class)
-                #print("first-last-address-driversLicense-ssn-Resnum")
-                #print("{} {} {} {} {} {}".format(customer_info[0], customer_info[1], customer_info[2], customer_info[3], customer_info[4], customer_info[5]))
                 print()
                 self.customer_menu()
 
@@ -216,11 +214,12 @@ class MainMenu:
                     pass
 
             elif action == "5":
-                self.header_2("Displaying All Customers")
+                print("Displaying All Customers")
                 all_cust = self.__car_rental_service.get_all_customers()
-                customer_class = self.__car_rental_service.make_customer_class(all_cust)
-                print(customer_class)
-                print()
+                for customer in all_cust:
+                    customer_class = self.__car_rental_service.make_customer_class(customer)
+                    print(customer_class)
+                    print()
                 self.customer_menu()
 
             elif action == "6":

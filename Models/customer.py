@@ -11,12 +11,13 @@ class Customer:
 
     def __str__(self):
         return ("Customer details\n"
-                "Full name: {}\n"
+                "First name: {}\n"
+                "Last name: {}\n"
                 "Address: {}\n"
                 "Drivers license: {}\n"
                 "SSN: {}\n"
                 "Current rental order number: {}".format(
-                    self.first_name + " " + self.last_name, self.address,
+                    self.first_name, self.last_name, self.address,
                     self.drivers_license, self.ssn,
                     self.current_rental_number))
 
