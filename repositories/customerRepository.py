@@ -2,6 +2,7 @@ import csv
 import os
 from models.customer import Customer
 
+
 class CustomerRepository:
 
     def __init__(self):

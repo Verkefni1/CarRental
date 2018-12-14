@@ -8,7 +8,7 @@ class Customer:
         self.drivers_license = drivers_license
         self.ssn = ssn
         self.current_rental_number = current_rental_number
-    
+
     def __str__(self):
         return "Customer:\n Full name: {}\n Address: {}\n Drivers license: {}\n SSN: {}\n Current rental order number: {}".format(self.first_name + " " + self.last_name, self.address, 
                  self.drivers_license, self.ssn, self.current_rental_order_number)
