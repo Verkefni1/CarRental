@@ -36,7 +36,7 @@ class CarRentalServices():
         #self.__vehicle_repo.add_vehicle(vehicle)
         pass
     
-    def remove_vehicle(self,vehicle):
+    def remove_vehicle(self, vehicle):
         """ Remove vehicle from DB"""
         #self.__vehicle_repo.remove_vehicle(vehicle)
         pass

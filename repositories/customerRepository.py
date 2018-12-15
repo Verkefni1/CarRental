@@ -37,9 +37,8 @@ class CustomerRepository:
         with open("./data/customer.csv", "r") as customer_file:
             reader = csv.reader(customer_file)
             for customer in reader:
-                if customer[4] == ssn:
+                if customer[4] == str(ssn):
                     return customer
-        return None
 
     # updates customer if exists in the customer file.
     # Search for customer by entering the customers kennitala
