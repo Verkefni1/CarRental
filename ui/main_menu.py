@@ -70,6 +70,7 @@ class MainMenu:
                 quit()
             else:
                 print("Invalid input\n")
+                self.ui_menu()
 
     def vehicle_menu(self):
         action = ""
@@ -88,13 +89,16 @@ class MainMenu:
             action = input("Enter: ").lower()
 
             if action == "1":
-                print("Displaying Available Vehicles")
-                available_list = self.__res_services.display_available_vehicles()
+                self.header_2("Displaying Today's Available Vehicles")
+                available_list = (self.__res_services.
+                                  display_available_vehicles())
                 self.format_list_of_list(available_list)
+                self.vehicle_menu()
             elif action == "2":
                 print("Displaying Rented Vehicles")
                 reserved_today = self.__res_services.display_reserved_vehicles()
                 self.print_list(reserved_today)
+                self.vehicle_menu()
 
             elif action == "3":
                 if self.__current_employee.is_manager():
@@ -110,14 +114,16 @@ class MainMenu:
                     new_vehicle = Vehicle(IDnumber, body, make, model,
                                           year, color, transmission)
                     self.__car_rental_service.add_vehicle(new_vehicle)
+                    self.vehicle_menu()
                 else:
-                    pass
+                    self.vehicle_menu()
 
             elif action == "4":
                 # Retire Vehicle
                 print("=== Retire Vehicle ===")
                 vehicle_ID = input("Enter Vehicle ID: ")
                 self.__car_rental_service.remove_vehicle(vehicle_ID)
+                self.vehicle_menu()
 
             elif action == "5":
                 print("Go back")
@@ -125,6 +131,7 @@ class MainMenu:
 
             else:
                 print("Invalid input")
+                self.vehicle_menu()
 
     def customer_menu(self):
         print("=== CUSTOMERS ===\n")
@@ -159,7 +166,8 @@ class MainMenu:
                 print("=== Customer Search ===")
                 ssn = input("Enter Customers SSN: ")
                 customer_info = self.__car_rental_service.search_customer_by_ssn(ssn)
-                print(customer_info)
+                customer_class = self.__car_rental_service.make_customer_class(customer_info)
+                print(customer_class)
                 print()
                 self.customer_menu()
 
@@ -213,10 +221,12 @@ class MainMenu:
                     pass
 
             elif action == "5":
-                self.header_2("Displaying All Customers")
+                print("Displaying All Customers")
                 all_cust = self.__car_rental_service.get_all_customers()
-                self.print_list(all_cust)
-                print()
+                for customer in all_cust:
+                    customer_class = self.__car_rental_service.make_customer_class(customer)
+                    print(customer_class)
+                    print()
                 self.customer_menu()
 
             elif action == "6":
@@ -287,8 +297,9 @@ class MainMenu:
                                               end_date, insurance,
                                               payment_method, body_type,
                                               (self.__current_employee.
-                                               get_username()))
+                                               get_username()), None, "No")
                 self.__res_services.make_res(new_reservation)
+                print(new_reservation)
                 print("")
                 self.reservations_menu()
 
@@ -327,40 +338,49 @@ class MainMenu:
                         change = input("Enter New License Number: ")
                         self.__res_services.edit_res(res_num, edit_action,
                                                      change)
+                        self.reservations_menu()
                     elif edit_action == "2":
                         change = input("Enter New CC Number: ")
                         self.__res_services.edit_res(res_num, edit_action,
                                                      change)
+                        self.reservations_menu()
                     elif edit_action == "3":
                         change = input("New Start Date: ")
                         self.__res_services.edit_res(res_num, edit_action,
                                                      change)
+                        self.reservations_menu()
                     elif edit_action == "4":
                         change = input("New End Date: ")
                         self.__res_services.edit_res(res_num, edit_action,
                                                      change)
+                        self.reservations_menu()
                     elif edit_action == "5":
                         change = input("Insurance: ")
                         self.__res_services.edit_res(res_num, edit_action,
                                                      change)
+                        self.reservations_menu()
                     elif edit_action == "6":
                         change = input("Enter New Payment Method: ")
                         self.__res_services.edit_res(res_num, edit_action,
                                                      change)
+                        self.reservations_menu()
                     elif edit_action == "7":
                         change = input("Enter New Body Type: ")
                         self.__res_services.edit_res(res_num, edit_action,
                                                      change)
+                        self.reservations_menu()
                     elif edit_action == "8":
                         change = input("Enter New Vehicle ID: ")
                         self.__res_services.edit_res(res_num, edit_action,
                                                      change)
+                        self.reservations_menu()
                     elif edit_action == "9":
                         change = input("Keys In / Keys Out: ")
                         self.__res_services.edit_res(res_num, edit_action,
                                                      change)
                         reservation = (self.__res_services.search_res(res_num))
                         print(reservation)
+                        self.reservations_menu()
                     elif edit_action == "10":
                         self.reservations_menu()
 
@@ -415,6 +435,7 @@ class MainMenu:
                 new_password = getpass.getpass()
                 self.__employee_services.employee_change_password(
                     self.__current_employee.get_username(), new_password)
+            self.employee_menu()
 
         elif action == "6":
             self.ui_menu()
@@ -426,6 +447,7 @@ class MainMenu:
                     employee_list = (self.__employee_services.
                                      get_all_employees())
                     self.print_list(employee_list)
+                self.employee_menu()
 
             elif action == "3":
                 if self.verify_pass():
@@ -461,6 +483,7 @@ class MainMenu:
                                  self.__current_employee, username)
                     else:
                         print("Username Already Taken")
+                self.employee_menu()
 
             elif action == "5":
                 if self.verify_pass():
@@ -471,9 +494,13 @@ class MainMenu:
                                self.__current_employee, username)
                     else:
                         self.not_employee()
+                self.employee_menu()
 
         else:
             print("Invalid input")
+            self.employee_menu()
+
+# Display and Formatting Functions
 
     def verify_pass(self):
         print("Please Re-Enter Password")
@@ -505,7 +532,7 @@ class MainMenu:
         """
         header_text = header_text.capitalize()
         print("\n--- {} ---".format(header_text))
-    
+
     def format_warning(self, warning_text):
         """
         ****** WARNING ******
@@ -514,11 +541,12 @@ class MainMenu:
         print("\n***** {} *****".format(warning_text))
 
     def format_list_of_list(self, the_list):
-        
-        print("{} {}s\n"
-              "{} {}s\n"
-              "{} {}s\n".format(the_list[0], the_list[1], the_list[2],
-                                the_list[3], the_list[4], the_list[5]))
+
+        print("{}s: {}\n"
+              "{}s: {}\n"
+              "{}s: {}\n".format(the_list[1].capitalize(), the_list[0],
+                                 the_list[3].capitalize(), the_list[2],
+                                 the_list[5].capitalize(), the_list[4]))
 
     def display_rates(self):
         rate_list = self.__res_services.get_rates_list()

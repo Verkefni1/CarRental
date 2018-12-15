@@ -12,7 +12,7 @@ class ReservationRepository:
         with open("./data/rates.csv", 'r') as rates_file:
             reader = csv.reader(rates_file)
             for row in reader:
-                rates_list.append(row)        
+                rates_list.append(row)
         return rates_list
 
     def make_res(self, new_res):
@@ -26,10 +26,13 @@ class ReservationRepository:
             payment_method = new_res.get_payment_method()
             body_type = new_res.get_body_type()
             employee = new_res.get_employee()
-            reservations_file.write("\n{},{},{},{},{},{},{},{},{}".format(
+            keys = new_res.get_keys()
+            vehicleID = new_res.get_vehicleID()
+            reservations_file.write("\n{},{},{},{},{},{},{},{},{},{},{}".format(
                                     reservation_number, customer_license,
                                     credit_card, from_date, to_date, insurance,
-                                    payment_method, body_type, employee))
+                                    payment_method, body_type, vehicleID,
+                                    employee, keys))
 
     def get_all_reserved(self):  # FINAL BUT NEEDS POLISHING
         with open("./data/reservations.csv", "r") as reservation_file: #P rints all the reservations
@@ -40,7 +43,7 @@ class ReservationRepository:
 
     def search_reservations(self, res_num): #FINAL BUT NEEDS POLISHING
         with open("./data/reservations.csv", "r") as reservations_file:
-            reader = csv.reader(reservations_file)#Prints the reservation with the same reservation number
+            reader = csv.reader(reservations_file) # Prints the reservation with the same reservation number
             for reservation in reader:
                 if res_num == reservation[0]:
                     return reservation

@@ -4,6 +4,8 @@ from repositories.ReservationsRepository import ReservationRepository
 from repositories.vehicleRepository import VehicleRepository
 
 from datetime import datetime
+from datetime import timedelta
+import datetime
 
 
 class ResServices():
@@ -93,13 +95,13 @@ class ResServices():
         """
         Gets the difference between the 2 dates in days.
         """
-        day1 = datetime.strptime(start_date, '%Y/%m/%d').date()
-        day2 = datetime.strptime(end_date, '%Y/%m/%d').date()
+        day1 = datetime.datetime.strptime(start_date, '%Y/%m/%d').date()
+        day2 =datetime.datetime.strptime(end_date, '%Y/%m/%d').date()
         diff = day2 - day1
         res_length = diff.days
         return res_length
 
-    def check_availability(self, body_type, start_date, end_date):
+    def check_availability(self, body_type, start_date=0, end_date=0):
         """
         Compares inventory of selected vehicle body type
         to the number of reservations that both match the body type
@@ -109,20 +111,31 @@ class ResServices():
         res_list = self.__reservation_repo.get_reservations()
         inventory = self.count_vehicle_body(body_type)
 
-        start_date = datetime.strptime(start_date, '%Y/%m/%d').date()
-        end_date = datetime.strptime(end_date, '%Y/%m/%d').date()
+        start_date = datetime.datetime.strptime(start_date, '%Y/%m/%d').date()
+        end_date = datetime.datetime.strptime(end_date, '%Y/%m/%d').date()
 
         reserved_inventory = 0  # Number of cars reserved
-
+        
         for res in res_list:
             if body_type.lower() == res[7].lower():  # res[7] corresponds to vehicle body type
-                res_start_date = datetime.strptime(res[4], '%Y/%m/%d').date() # changes the dates from the reservations into datetime info
-                res_end_date = datetime.strptime(res[3], '%Y/%m/%d').date()
+                                
+                res_start_date = datetime.datetime.strptime(res[4], '%Y/%m/%d').date() # changes the dates from the reservations into datetime info
+                res_end_date = datetime.datetime.strptime(res[3], '%Y/%m/%d').date()
+                
                 # if the selected start date is before a file reservation end date
                 # and the selected end date happens before a file reservation,
-                # then we know the dates overlap
-                if start_date <= res_end_date and end_date >= res_start_date:
+                # then we know the dates overlap         
+                    
+                if (res_start_date <= start_date <= res_end_date):
                     reserved_inventory += 1
+                elif (res_start_date <= end_date <= res_end_date):
+                    reserved_inventory += 1
+                elif (start_date <= res_start_date <= end_date):
+                    reserved_inventory += 1
+                # if (lease start <= start_time <= lease_end) or (lease_start <= end_time <= lease_end) or (start_time <= lease start <= end_time) 
+                #if start_date <= res_end_date and end_date >= res_start_date:
+                    #print("hello")
+                                        
         available = inventory - reserved_inventory
         return available
 
@@ -135,7 +148,7 @@ class ResServices():
         inventory_body_type = 0
 
         for vehicle in total_inventory:
-            if vehicle[1] == body_type:
+            if vehicle[1].lower() == body_type:
                 inventory_body_type += 1
         return inventory_body_type
 
@@ -157,8 +170,10 @@ class ResServices():
             count = self.check_availability(
                                       rate[0], current_day,
                                       current_day)
+            #print(rate[0], count)
             available.append(count)
             available.append(rate[0])
+        
         return available
 
     def display_reserved_vehicles(self):
@@ -181,7 +196,7 @@ class ResServices():
         return res_class_list
 
     def current_day_str(self):
-        current_date = datetime.today()
+        current_date = datetime.datetime.today()
         year = current_date.year
         month = current_date.month
         day = current_date.day

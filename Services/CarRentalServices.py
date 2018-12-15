@@ -45,6 +45,24 @@ class CarRentalServices():
     def add_customer(self, employee, customer):
         return self.__customer_repo.add_customer(customer)
 
+    def make_customer_class(self, customer_list):
+        """
+        Uses reservation as list that was pulled from repo to
+        return a Reservation() class object
+        """
+        
+        try:
+            customer_class = Customer(customer_list[0],
+                                      customer_list[1],
+                                      customer_list[2],
+                                      customer_list[3],
+                                      customer_list[4],
+                                      customer_list[5])
+            
+            return customer_class
+        except TypeError:
+            return "Customer Not Found"
+
     def search_customer_by_ssn(self, ssn):
         return self.__customer_repo.search_customer_by_ssn(ssn)
 

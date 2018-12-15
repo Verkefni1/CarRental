@@ -17,6 +17,7 @@ class CustomerRepository:
             ssn = customer.get_ssn()
             drivers_license = customer.get_drivers_license()
             current_rental_number = customer.get_current_rental_number()
+
             customers_file.write("\n{},{},{},{},{},{}".format(
                 first_name, last_name, address,
                 ssn, drivers_license, current_rental_number))
@@ -45,7 +46,7 @@ class CustomerRepository:
     def edit_customer(self, ssn, edit_action, change):
         with open('./data/customer.csv', 'r') as customer_file:
             reader = csv.reader(customer_file)
-            with open('./data/customerTmp.csv', 'w+',newline='') as customer_file_tmp:
+            with open('./data/customerTmp.csv', 'w+', newline='') as customer_file_tmp:
                 writer = csv.writer(customer_file_tmp)
                 for cus in reader:
                     if ssn == cus[4]:
@@ -85,4 +86,5 @@ class CustomerRepository:
                 for row in reader:
                     if row[4] != ssn:
                         writer.writerow(row)
+        os.remove('./data/customer.csv')
         os.rename('./data/customerTmp.csv', './data/customer.csv')

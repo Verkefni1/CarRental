@@ -1,5 +1,13 @@
 0,customer_license_num,CC_number,start_date,end_date,insurance(Y/N),payment_method,body,vehicleID,employee,keys
-1,hellomom,111,2018/12/12,2018/12/20,True,cash,SUV,jon,employee,yes
-2,22,222,2018/12/12,2018/12/20,False,credit,Sedan,jon,employee,no
+1,hellomom,111,2018/12/15,2018/12/15,True,cash,SUV,jon,employee,yes
+2,22,222,2018/12/12,2018/12/20,False,credit,sedan,jon,employee,no
 4,44,444,2018/12/12,2018/12/20,True,cash,hatchback,jon,employee,Out
 8,12345,123456789abcdef,2018/12/12,2018/12/20,True,cash,hatchback,NoneFound,employee,no
+9,12324,ksdfjlasdfj,2018/12/12,2018/12/15,True,cash,sedan,none,admin,yes
+10,33355,80085,2018/12/25,2018/12/25,False,cash,sedan,none,admin,no
+11,3575984,1354,2018/12/10,2018/12/30,True,cash,sedan,admin,admin,no
+12,sdfkdjsaljf,123,2018/12/14,2018/12/14,True,credit,sedan,admin,admin,no
+13,numbernumber,12354,2018/12/14,2018/12/16,True,cash,sedan,Not Picked Up Yet,admin
+14,lookatme,12345,2018/12/12,2018/12/15,True,cash,sedan,None,admin,yes
+15,123846,124536,2018/12/12,2018/12/15,True,cash,sedan,None,admin,yes
+16,numbers,numbers,2018/12/11,2018/12/15,True,credit,sedan,None,admin,No

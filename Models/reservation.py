@@ -48,7 +48,7 @@ class Reservation:
         return self.credit_card
 
     def get_from_date(self):
-        return self.end_date
+        return self.start_date
 
     def get_to_date(self):
         return self.end_date
@@ -64,6 +64,12 @@ class Reservation:
 
     def get_employee(self):
         return self.employee
+
+    def get_keys(self):
+        return self.keys
+    
+    def get_vehicleID(self):
+        return self.vehicleID
 
     def hide_credit_card(self):
         last_four = str(self.credit_card)[-5:-1]
